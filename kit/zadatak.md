@@ -158,7 +158,7 @@ Ovo koristimo. Ako izabereš alternativu, u dnevniku napiši zašto.
 | Grafici | [MUI X Charts](https://mui.com/x/react-charts/quickstart/) | [Recharts](https://recharts.github.io/en-US/guide/getting-started/), [Apache ECharts](https://echarts.apache.org/handbook/en/get-started/) |
 | Forme i validacija | [React Hook Form](https://react-hook-form.com/get-started) + [Zod](https://zod.dev/) | [TanStack Form](https://tanstack.com/form/latest/docs/overview), [Valibot](https://valibot.dev/guides/introduction/) |
 | Pisanje u bazu | [Server Actions](https://nextjs.org/docs/app/getting-started/mutating-data) | [Route Handlers](https://nextjs.org/docs/app/getting-started/route-handlers) |
-| Baza | [PostgreSQL](https://www.postgresql.org/docs/current/) | [Supabase](https://supabase.com/docs), [Neon](https://neon.com/docs/introduction), [SQLite](https://www.sqlite.org/docs.html), [Oracle Free](https://www.oracle.com/database/free/) |
+| Baza | [PostgreSQL](https://www.postgresql.org/docs/current/) na [Neonu](https://neon.com/docs/introduction) | [Supabase](https://supabase.com/docs), [lokalni PostgreSQL](https://www.postgresql.org/download/), [SQLite](https://www.sqlite.org/docs.html), [Oracle Free](https://www.oracle.com/database/free/) |
 | Pristup bazi | čisti SQL ili [Drizzle](https://orm.drizzle.team/docs/overview) | [Prisma](https://www.prisma.io/docs), [Kysely](https://kysely.dev/docs/intro), [TypeORM](https://typeorm.io/) |
 | Prognoza | [Chronos-2](https://github.com/amazon-science/chronos-forecasting) | [TimesFM](https://github.com/google-research/timesfm), [statsforecast](https://nixtlaverse.nixtla.io/statsforecast/docs/getting-started/getting_started_short.html), [Prophet](https://facebook.github.io/prophet/docs/quick_start.html) |
 | Analiza | [pandas](https://pandas.pydata.org/docs/getting_started/index.html), [Jupyter](https://jupyter.org/install) | SQL direktno nad bazom |
@@ -170,7 +170,7 @@ Napomene:
 - Data Grid: dovoljna je besplatna verzija (`@mui/x-data-grid`). Pro i Premium ne trebaju. Pazi da verzija odgovara verziji MUI-ja.
 - TimesFM 3.0 ima težine pod nekomercijalnom licencom (2.5 je Apache-2.0). Za učenje je u redu, ali to zapiši. Chronos-2 je Apache-2.0.
 - Next.js je postavljen s podrazumijevanim postavkama, uključujući Cache Components. Pročitaj u dokumentaciji šta to znači za čitanje iz baze; `app/page.tsx` je jedan primjer.
-- Firma koristi i Express, TypeORM, Oracle, Keycloak, Docker, nginx i Turborepo. Za ovaj zadatak nisu potrebni.
+- Firma koristi i Express, TypeORM, Oracle, Keycloak, nginx i Turborepo. Za ovaj zadatak nisu potrebni.
 
 ## 5. Bonusi
 
@@ -178,7 +178,6 @@ Napomene:
 - Skica arhitekture u README-u: šta radi browser, šta server, šta baza.
 - Kratak video ili GIF glavnog toka.
 - CI: GitHub Actions pokreće lint, build i testove na svaki push.
-- Docker i za aplikaciju.
 - Izvoz u Excel, pretraga, paginacija na serveru.
 - Nešto drugo što bi klijentu pomoglo. Objasni zašto.
 
@@ -214,4 +213,4 @@ Popunjavamo je zajedno, na predaji i na prezentaciji. Kolona *Ti* je tvoja, kolo
 | Faza C2: asistent s alatima | ☐ | ☐ |
 | Testovi | ☐ | ☐ |
 | Skica arhitekture ili video | ☐ | ☐ |
-| CI ili Docker za aplikaciju | ☐ | ☐ |
+| CI (GitHub Actions) | ☐ | ☐ |

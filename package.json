@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "baza": "node --env-file-if-exists=.env.local scripts/baza.mjs"
   },
   "dependencies": {
     "next": "16.4.2",
