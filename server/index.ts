@@ -1,4 +1,4 @@
-// Backend: Hono na Node.js, port 3001. Frontend ga zove preko /api (vidi vite.config.ts).
+// Backend: Hono na Node.js, port 3000. Frontend ga zove preko /api (vidi vite.config.ts).
 // GET /api/provjera je samo provjera okruženja; svoje rute dodaj pored nje.
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
@@ -32,6 +32,6 @@ app.get("/api/provjera", async (c) => {
   }
 });
 
-serve({ fetch: app.fetch, port: 3001 }, (info) => {
+serve({ fetch: app.fetch, port: 3000 }, (info) => {
   console.log(`Backend radi na http://localhost:${info.port}`);
 });
