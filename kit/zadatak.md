@@ -1,34 +1,35 @@
 # Praksa: aplikacija za narudžbe
 
-Gledamo kako istražuješ, kako rješavaš probleme i kako objašnjavaš svoje odluke. Kod je dio toga, ne sve. Unaprijed je pripremljeno samo okruženje (vidi `README.md`). Sve ostalo gradiš samostalno.
+Pored koda gledamo kako istražuješ, rješavaš probleme i objašnjavaš odluke. Unaprijed je pripremljeno samo okruženje (vidi `README.md`). Sve ostalo gradiš samostalno.
 
 **Kako se radi**
 
-- Vodi `DNEVNIK.md` u svom repozitoriju. Za svaku veću stvar kratko zapiši: šta treba, šta je pročitano i probano, šta nije radilo, šta je izabrano i zašto.
-- AI koristi slobodno, za objašnjenje koda, greške ili pojma. Ne predaji kod koji ne razumiješ. Ako je AI napisao veći dio nečega, navedi to u dnevniku.
-- Kad zapneš, prvo probaj samostalno: dokumentacija, poruka greške, pretraga. Ako ne ide, javi se podršci i pošalji šta je pokušano i tačnu poruku greške.
+- Vodi `DNEVNIK.md` u svom repozitoriju. Za svaku veću stvar kratko zapiši: šta treba, šta čitaš i probaš, šta nije radilo, šta biraš i zašto.
+- AI koristi slobodno, za objašnjenje koda, greške ili pojma. Ne predaj kod koji ne razumiješ. Ako je AI napisao veći dio nečega, navedi to u dnevniku.
+- Kad zapneš, prvo pročitaj poruku greške i dokumentaciju, pa pretraži. Ako ne ide, pošalji podršci tačnu poruku greške i šta nije pomoglo.
 - Commitaj često, s jasnim porukama.
 
 Podrška: ______________________________
 
-Faze idu od lakše ka težoj. Faza A je obavezna. B i C su za dalje. Svaka završena faza se računa.
+Faze idu od lakše ka težoj. Faza A je obavezna. B i C su dodatne i teže; računa se svaka završena.
 
-## 0. Korak 0: osnove
+## Korak 0: osnove
 
-Ako se s ovim alatima srećeš prvi put, kreni odavde. Samo zvanični materijali.
+Ako ove alate koristiš prvi put, kreni odavde. Linkovi vode na zvaničnu dokumentaciju.
 
 | Tema | Šta proći | Možeš dalje kad znaš |
 | --- | --- | --- |
+| HTML i CSS | [MDN: Your first website](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website) | napraviti jednostavnu stranicu s formom |
 | JavaScript | [MDN: JavaScript](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting) | napisati funkciju koja filtrira i sabira niz objekata |
 | TypeScript | [TypeScript za JavaScript programere](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html) | dodati tipove funkciji i objektu |
 | React | [react.dev/learn](https://react.dev/learn) | napraviti komponentu s formom i stanjem |
 | Next.js | [Next.js Learn: Dashboard App](https://nextjs.org/learn/dashboard-app) | objasniti razliku između server i client komponente |
-| SQL i relacije | PostgreSQL: [poglavlje 2](https://www.postgresql.org/docs/current/tutorial-sql.html), [strani ključevi](https://www.postgresql.org/docs/current/tutorial-fk.html), [ograničenja](https://www.postgresql.org/docs/current/ddl-constraints.html) | napisati `SELECT` s `JOIN` i `GROUP BY` |
+| SQL i relacije | PostgreSQL: [poglavlje 2](https://www.postgresql.org/docs/current/tutorial-sql.html), [strani ključevi](https://www.postgresql.org/docs/current/tutorial-fk.html), [ograničenja](https://www.postgresql.org/docs/current/ddl-constraints.html) | napisati `SELECT` s `JOIN` i `GROUP BY` (kako pokrenuti SQL: `README.md`) |
 | Git | [Pro Git, poglavlja 1–3](https://git-scm.com/book/en/v2), [GitHub: Git basics](https://docs.github.com/en/get-started/git-basics) | napraviti branch, commit i push |
 
-Relacije na našim podacima: tabela čuva jednu vrstu stvari (kupac, proizvod, narudžba). Primarni ključ `id` jednoznačno označava red. Strani ključ, npr. `narudzbe.kupac_id`, pokazuje na red u drugoj tabeli. Jedna narudžba ima više stavki (1:N). Preko stavki su narudžbe i proizvodi u vezi N:M. `JOIN` spaja tabele po tim ključevima.
+Relacije na našim podacima: tabela čuva jednu vrstu stvari (kupac, proizvod, narudžba). Primarni ključ `id` jednoznačno označava red. Strani ključ, npr. `narudzbe.kupac_id`, pokazuje na red u drugoj tabeli. Jedna narudžba ima više stavki (1:N). Narudžbe i proizvodi su u vezi N:M preko stavki. `JOIN` spaja tabele po tim ključevima.
 
-Provjera: napiši upit koji vraća deset kupaca s najvećim prometom u 2025. godini (naziv, broj narudžbi, promet). Kad ga znaš napisati i objasniti, kreni na fazu A.
+Provjera: napiši upit koji vraća deset kupaca s najvećim prometom u 2025. godini (naziv, broj narudžbi, promet; promet računaj po pravilima iz poglavlja 2). Kad ga znaš napisati i objasniti, kreni na fazu A.
 
 ## 1. Zašto ova aplikacija
 
@@ -38,14 +39,14 @@ Danas narudžbe stižu telefonom, porukom i mailom. Komercijalista ih prepisuje 
 
 - greške u količinama i cijenama, i niko ne zna koja je verzija tačna;
 - kupac pita gdje mu je roba, a odgovor traže tri osobe;
-- vlasnik ne vidi koji kupci i proizvodi donose novac, ni šta pada;
+- vlasnik ne vidi koji kupci i proizvodi donose novac, ni šta je u padu;
 - nabavka nagađa koliko robe naručiti. Ljeti nestane vode, zimi višak stoji u skladištu.
 
 Klijent traži:
 
 1. jedno mjesto za narudžbe: unos, pregled i status;
 2. pregled poslovanja: promet, kupci, proizvodi, sezona;
-3. prognozu potražnje za nabavku i asistenta kojem se može postaviti pitanje o podacima.
+3. prognozu potražnje za nabavku i asistenta koji odgovara na pitanja o podacima.
 
 | Ko koristi | Šta radi |
 | --- | --- |
@@ -58,7 +59,7 @@ Tok narudžbe: `KREIRANA` → `U_OBRADI` → `POSLATA` → `ISPORUCENA`. Dok nij
 
 ## 2. Podaci
 
-U `data/` su šema (`schema.sql`) i podaci (`seed.sql`, isto u `csv/`). Podaci su generisani i pokrivaju dvije godine poslovanja. Imena su izmišljena.
+U `data/` su šema (`schema.sql`) i podaci (`seed.sql`, isto u `csv/`). Podaci su generisani i pokrivaju dvije godine poslovanja. Završavaju 31. 12. 2025; za analizu i prognozu to je „danas“. Imena su izmišljena.
 
 ```text
 kupci ─< narudzbe ─< stavke_narudzbe >─ proizvodi >─ kategorije
@@ -74,7 +75,7 @@ kupci ─< narudzbe ─< stavke_narudzbe >─ proizvodi >─ kategorije
 
 Pravila:
 
-- `proizvodi.cijena` je današnja cijena. `stavke_narudzbe.cijena_po_komadu` je cijena u trenutku narudžbe. Nisu uvijek iste.
+- `proizvodi.cijena` je trenutna cijena. `stavke_narudzbe.cijena_po_komadu` je cijena u trenutku narudžbe. Nisu uvijek iste.
 - Iznos stavke = `kolicina × cijena_po_komadu × (1 − rabat_posto / 100)`.
 - Otkazane narudžbe ne ulaze u promet.
 - Neaktivan proizvod se ne nudi u novim narudžbama, ali ostaje u starim.
@@ -85,13 +86,13 @@ Podaci nisu savršeni. Ako nađeš nešto čudno, zapiši i predloži šta bi kl
 
 ### Faza A: narudžbe (obavezno)
 
-Napravi:
+Radi redom. A1 i A2 se računaju posebno.
 
-1. listu narudžbi u MUI X Data Grid: broj, kupac, datum, status, broj stavki, iznos; sortiranje i filter po statusu;
-2. detalj narudžbe sa stavkama;
-3. unos nove narudžbe: kupac, datum i jedna ili više stavki (proizvod, količina, cijena po komadu; cijena se predlaže iz cjenovnika);
-4. promjenu statusa po toku iz poglavlja 1; nedozvoljen prelaz se odbija;
-5. izmjenu i brisanje: narudžba u statusu `KREIRANA` se može mijenjati ili obrisati, kasnije samo otkazati.
+**A1. Lista i unos.** Napravi:
+
+1. listu narudžbi u MUI X Data Gridu (ili alternativi iz poglavlja 4): broj, kupac, datum, status, broj stavki, iznos; sortiranje i filter po statusu;
+2. detalje narudžbe sa stavkama;
+3. unos nove narudžbe: kupac, datum i jedna ili više stavki (proizvod, količina, cijena po komadu, rabat; cijena se predlaže iz cjenovnika).
 
 Pravila unosa, u formi i na serveru:
 
@@ -99,15 +100,21 @@ Pravila unosa, u formi i na serveru:
 - proizvod je obavezan i aktivan, a isti proizvod se javlja samo jednom po narudžbi;
 - količina je cijeli broj veći od nule, cijena nula ili veća, rabat od 0 do 100.
 
-Probaj ispravan unos, unos bez kupca, bez stavki, s količinom 0 i s negativnom cijenom. Neispravan unos ne smije završiti u bazi ni kad zaobiđeš formu, npr. kad zahtjev pošalješ direktno. Ako snimanje ne uspije, korisnik vidi jasnu poruku.
+Probaj ispravan unos, unos bez kupca, bez stavki, s količinom 0 i s negativnom cijenom. Neispravan unos ne smije završiti u bazi ni kad privremeno isključiš provjeru u formi. Ako se narudžba ne sačuva, korisnik vidi jasnu poruku.
 
-Na kraju dodaj jedno novo polje, npr. način plaćanja, tako da se vidi u formi, sačuva u bazi i prikaže u listi. Uz to ide migracija.
+**Gotovo kad:** nova narudžba ostaje i nakon osvježavanja stranice; sva četiri neispravna unosa server odbija; znaš pokazati put jednog zahtjeva od forme do baze i nazad.
 
-**Gotovo kad:** nova narudžba ostaje i nakon osvježavanja stranice; sva četiri neispravna unosa server odbija; status ide samo dozvoljenim putem; znaš pokazati put jednog zahtjeva od forme do baze i nazad.
+**A2. Status, izmjena, novo polje.** Napravi:
+
+1. promjenu statusa po toku iz poglavlja 1; nedozvoljen prelaz se odbija;
+2. izmjenu i brisanje: narudžbu u statusu `KREIRANA` možeš izmijeniti ili obrisati, a u statusu `U_OBRADI` samo otkazati;
+3. jedno novo polje, npr. način plaćanja, tako da se vidi u formi, sačuva u bazi i prikaže u listi. Uz to ide migracija.
+
+**Gotovo kad:** status ide samo dozvoljenim putem; poslata narudžba se ne može izmijeniti ni obrisati; novo polje radi od forme do baze.
 
 ### Faza B: analitika
 
-Vlasnik hoće pregled poslovanja. Napravi stranicu s tri do četiri grafika (MUI X Charts) i odgovori na pitanja:
+Vlasnik hoće pregled poslovanja. Napravi stranicu s tri do četiri grafika (MUI X Charts ili alternativa iz poglavlja 4) i odgovori na pitanja:
 
 - Kako se kreće promet po mjesecima? Ima li sezone i rasta?
 - Koji kupci i proizvodi donose najviše? Ko je prestao naručivati?
@@ -119,22 +126,22 @@ Upite piši u SQL-u i drži ih u repozitoriju. Ne računaj sve u browseru.
 
 **Gotovo kad:** grafici rade nad bazom, a u `ANALIZA.md` su tri do pet nalaza. Svaki nalaz ima broj iz podataka i jednu rečenicu preporuke za klijenta.
 
-### Faza C: inteligencija
+### Faza C: prognoza i asistent
 
 **C1. Prognoza potražnje.** Nabavka pita koliko čega naručiti za sljedećih osam sedmica.
 
-- Napravi sedmične serije količina po proizvodu ili kategoriji.
-- Prvo napravi jednostavnu osnovu, npr. ista sedmica prošle godine ili prosjek zadnjih sedmica.
+- Napravi sedmične serije količina po proizvodu ili kategoriji, samo iz početnih podataka. Pazi na nepotpune sedmice i proizvode koji se više ne prodaju.
+- Prvo napravi jednostavnu osnovu (baseline), npr. ista sedmica prošle godine ili prosjek zadnjih sedmica.
 - Onda model: Chronos-2 ili TimesFM. Sakrij zadnjih 12 sedmica, prognoziraj ih i izmjeri grešku (npr. MAE) za model i za osnovu.
 - Prikaži prognozu u aplikaciji uz stvarne vrijednosti.
 
-Ovaj dio može biti u Pythonu. Rezultat ide u bazu ili CSV koji aplikacija čita.
+Ovaj dio može biti u [Pythonu](https://www.python.org/downloads/). Rezultat ide u bazu ili CSV koji aplikacija čita.
 
-**C2. Asistent nad podacima.** Korisnik pita, npr. „Koji kafići u Mostaru su najviše naručivali ljeti?" ili „Šta da naručimo za sljedeći mjesec?", a asistent odgovara iz podataka.
+**C2. Asistent nad podacima.** Korisnik pita, npr. „Koji kafići u Mostaru su najviše naručivali ljeti?“ ili „Šta da naručimo za sljedeći mjesec?“, a asistent odgovara iz podataka.
 
-- Asistent ne piše proizvoljan SQL. Daj mu nekoliko alata (tool calling) koje napišeš, samo za čitanje: promet po kupcu, top proizvodi, prognoza i slično.
+- Asistent ne piše proizvoljan SQL. Napiši mu nekoliko alata samo za čitanje (tool calling): promet po kupcu, top proizvodi, prognoza i slično.
 - Prikaži koje je alate pozvao.
-- API ključ je u `.env.local`, nikad u kodu ni u repozitoriju.
+- API ključ je u `.env.local`, nikad u kodu ni u repozitoriju. Bez ključa možeš koristiti Ollama lokalno.
 - Zapiši bar dva pitanja na koja asistent odgovara pogrešno i zašto.
 
 **Gotovo kad:** prognoza je bolja od osnove ili znaš objasniti zašto nije; asistent odgovara iz podataka i vidi se koje je alate koristio.
@@ -145,7 +152,7 @@ Ovo koristimo. Ako izabereš alternativu, u dnevniku napiši zašto.
 
 | Područje | Koristimo | Alternative |
 | --- | --- | --- |
-| Framework | [Next.js](https://nextjs.org/docs/app/getting-started) (App Router) | [React Router](https://reactrouter.com/start/framework/installation), [Vite](https://vite.dev/guide/), [TanStack Start](https://tanstack.com/start/latest/docs/framework/react/overview) |
+| Framework | [Next.js](https://nextjs.org/docs/app/getting-started) (App Router) | [React Router](https://reactrouter.com/start/framework/installation), [TanStack Start](https://tanstack.com/start/latest/docs/framework/react/overview) |
 | UI | [MUI](https://mui.com/material-ui/getting-started/installation/) | [Mantine](https://mantine.dev/getting-started/), [shadcn/ui](https://ui.shadcn.com/docs) |
 | Tabela | [MUI X Data Grid](https://mui.com/x/react-data-grid/quickstart/), paket `@mui/x-data-grid` | [AG Grid](https://www.ag-grid.com/react-data-grid/getting-started/), [TanStack Table](https://tanstack.com/table/latest/docs/overview) |
 | Grafici | [MUI X Charts](https://mui.com/x/react-charts/quickstart/) | [Recharts](https://recharts.github.io/en-US/guide/getting-started/), [Apache ECharts](https://echarts.apache.org/handbook/en/get-started/) |
@@ -161,18 +168,19 @@ Ovo koristimo. Ako izabereš alternativu, u dnevniku napiši zašto.
 Napomene:
 
 - Data Grid: dovoljna je besplatna verzija (`@mui/x-data-grid`). Pro i Premium ne trebaju. Pazi da verzija odgovara verziji MUI-ja.
-- TimesFM 3.0 ima nekomercijalnu licencu. Za učenje je u redu, ali to zapiši. Chronos-2 je Apache-2.0.
-- Firma koristi i Express, TypeORM, Oracle, Keycloak, Docker, nginx i Turborepo. Za ovaj zadatak nisu potrebni. Navedeni su da znaš šta postoji.
+- TimesFM 3.0 ima težine pod nekomercijalnom licencom (2.5 je Apache-2.0). Za učenje je u redu, ali to zapiši. Chronos-2 je Apache-2.0.
+- Next.js je postavljen s podrazumijevanim postavkama, uključujući Cache Components. Pročitaj u dokumentaciji šta to znači za čitanje iz baze; `app/page.tsx` je jedan primjer.
+- Firma koristi i Express, TypeORM, Oracle, Keycloak, Docker, nginx i Turborepo. Za ovaj zadatak nisu potrebni.
 
 ## 5. Bonusi
 
 - Testovi: Vitest za pravila unosa, Playwright za unos narudžbe od početka do kraja.
-- Objašnjenje aplikacije: README sa skicom arhitekture (šta radi browser, šta server, šta baza) i uputstvom za pokretanje.
+- Skica arhitekture u README-u: šta radi browser, šta server, šta baza.
 - Kratak video ili GIF glavnog toka.
 - CI: GitHub Actions pokreće lint, build i testove na svaki push.
-- Docker i za aplikaciju, ne samo za bazu.
-- Izvoz u CSV ili Excel, pretraga, paginacija na serveru.
-- Nešto drugo što bi klijentu stvarno pomoglo. Objasni zašto.
+- Docker i za aplikaciju.
+- Izvoz u Excel, pretraga, paginacija na serveru.
+- Nešto drugo što bi klijentu pomoglo. Objasni zašto.
 
 ## 6. Kontrolna lista
 
@@ -182,17 +190,19 @@ Popunjavamo je zajedno, na predaji i na prezentaciji. Kolona *Ti* je tvoja, kolo
 | --- | :---: | :---: |
 | Repozitorij je dostupan; README objašnjava pokretanje od nule | ☐ | ☐ |
 | Aplikacija se pokreće po README-u na drugom računaru | ☐ | ☐ |
-| `DNEVNIK.md` pokazuje odluke, probleme i rješenja | ☐ | ☐ |
-| Faza A: lista, detalj, unos, status, izmjena i brisanje rade | ☐ | ☐ |
-| Faza A: četiri neispravna unosa server odbija; neuspjelo snimanje ima jasnu poruku | ☐ | ☐ |
-| Faza A: novo polje dodano, s migracijom | ☐ | ☐ |
+| `DNEVNIK.md`: za veće odluke piše šta je čitano i probano, šta nije radilo, zašto je izabrano i gdje je pomogao AI | ☐ | ☐ |
+| A1: lista, detalji i unos rade; nova narudžba ostaje nakon osvježavanja | ☐ | ☐ |
+| A1: četiri neispravna unosa server odbija; neuspjelo čuvanje daje jasnu poruku | ☐ | ☐ |
+| A2: status ide samo dozvoljenim putem; izmjena i brisanje po pravilima | ☐ | ☐ |
+| A2: novo polje dodano, s migracijom | ☐ | ☐ |
 | U repozitoriju nema lozinki ni API ključeva | ☐ | ☐ |
-| Kratka bilješka šta još ne radi | ☐ | ☐ |
+| Zapisano šta još ne radi | ☐ | ☐ |
 
 | Prezentacija | Ti | Pregled |
 | --- | :---: | :---: |
 | Glavni tok pokazan uživo | ☐ | ☐ |
 | Objašnjen put jednog zahtjeva od forme do baze | ☐ | ☐ |
+| Objašnjen dio koda koji je napisao AI | ☐ | ☐ |
 | Objašnjena jedna odluka i alternativa koja nije izabrana | ☐ | ☐ |
 | Pokazan jedan problem: kako je nađen i riješen | ☐ | ☐ |
 | Rečeno šta bi bilo sljedeće | ☐ | ☐ |
@@ -203,5 +213,5 @@ Popunjavamo je zajedno, na predaji i na prezentaciji. Kolona *Ti* je tvoja, kolo
 | Faza C1: prognoza izmjerena u odnosu na osnovu | ☐ | ☐ |
 | Faza C2: asistent s alatima | ☐ | ☐ |
 | Testovi | ☐ | ☐ |
-| Objašnjenje arhitekture ili video | ☐ | ☐ |
+| Skica arhitekture ili video | ☐ | ☐ |
 | CI ili Docker za aplikaciju | ☐ | ☐ |

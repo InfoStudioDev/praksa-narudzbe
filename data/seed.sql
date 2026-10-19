@@ -1,6 +1,8 @@
 -- Narudžbe: početni podaci. Generisani; sva imena su izmišljena.
 -- Učitaj nakon schema.sql.
 
+set client_encoding = 'UTF8';
+
 begin;
 
 insert into kategorije (id, naziv) values

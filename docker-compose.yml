@@ -1,5 +1,5 @@
 # PostgreSQL za lokalni rad. Pri prvom pokretanju učita data/schema.sql i data/seed.sql.
-# Početni podaci ispočetka: docker compose down -v && docker compose up -d
+# Vraćanje početnih podataka: docker compose down -v, pa docker compose up -d --wait
 services:
   baza:
     image: postgres:18
@@ -8,11 +8,16 @@ services:
       POSTGRES_PASSWORD: praksa
       POSTGRES_DB: narudzbe
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     volumes:
       - podaci:/var/lib/postgresql
       - ./data/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
       - ./data/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U praksa -d narudzbe -h 127.0.0.1"]
+      interval: 2s
+      timeout: 3s
+      retries: 60
 
 volumes:
   podaci:

@@ -1,33 +1,42 @@
 // Provjera okruženja: aplikacija se pokreće i baza odgovara.
-// Ovo nije početak aplikacije. Kad provjera prođe, zamijeni ovu stranicu svojim radom.
+// Kad provjera prođe, zamijeni ovu stranicu svojom aplikacijom.
 import { Suspense } from "react";
 import { connection } from "next/server";
 import { Client } from "pg";
 
-const TABELE = ["kupci", "proizvodi", "narudzbe", "stavke_narudzbe"];
+function opisGreske(e: unknown) {
+  if (e instanceof AggregateError) return e.errors.map((x) => String(x?.message ?? x)).join("; ");
+  return e instanceof Error ? e.message || e.name : String(e);
+}
 
-async function ProvjeraBaze() {
-  await connection();
-
+async function stanjeBaze(): Promise<string> {
   if (!process.env.DATABASE_URL) {
-    return <p>Baza: nema DATABASE_URL. Kopiraj .env.example u .env.local.</p>;
+    return "Baza: nema DATABASE_URL. Kopiraj .env.example u .env.local.";
   }
 
-  const client = new Client({ connectionString: process.env.DATABASE_URL });
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    connectionTimeoutMillis: 5000,
+  });
   try {
     await client.connect();
-    const brojevi = await Promise.all(
-      TABELE.map(async (tabela) => {
-        const r = await client.query(`select count(*)::int as n from ${tabela}`);
-        return `${tabela}: ${r.rows[0].n}`;
-      }),
-    );
-    return <p>Baza odgovara. {brojevi.join(", ")}.</p>;
+    const r = await client.query(`
+      select (select count(*) from kupci)::int           as kupci,
+             (select count(*) from proizvodi)::int       as proizvodi,
+             (select count(*) from narudzbe)::int        as narudzbe,
+             (select count(*) from stavke_narudzbe)::int as stavke_narudzbe`);
+    const brojevi = Object.entries(r.rows[0]).map(([tabela, n]) => `${tabela} ${n}`);
+    return `Baza odgovara: ${brojevi.join(", ")}.`;
   } catch (e) {
-    return <p>Baza ne odgovara: {e instanceof Error ? e.message : String(e)}</p>;
+    return `Baza ne odgovara: ${opisGreske(e)}`;
   } finally {
     await client.end().catch(() => {});
   }
+}
+
+async function ProvjeraBaze() {
+  await connection();
+  return <p>{await stanjeBaze()}</p>;
 }
 
 export default function Page() {
