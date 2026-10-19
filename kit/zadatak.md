@@ -1,26 +1,19 @@
 # Praksa: aplikacija za narudžbe
 
-Praviš aplikaciju za narudžbe za klijenta Bistra d.o.o. Pored koda gledamo kako istražuješ, rješavaš probleme i objašnjavaš odluke. Unaprijed je pripremljeno samo okruženje. Sve ostalo gradiš samostalno.
+Praviš aplikaciju za narudžbe za klijenta Bistra d.o.o. Pripremljeno je samo okruženje, ostalo gradiš sam. Gledamo kod i kako objašnjavaš odluke.
 
-**Faza A je cijeli zadatak.** Kad je završiš, zadatak je gotov. Faze B i C su bonus.
+**Faza A je cijeli zadatak.** Faze B i C su bonus.
 
 ## Redoslijed
 
-Poslije svakog koraka pushaj i pošalji osobi koja ti je poslala zadatak (u daljem tekstu: osoba koja pregleda):
+Postavljanje → Korak 0 → A1 → A2 → bonus iz kontrolne liste, ako želiš → predaja i prezentacija.
 
-| Korak | Šta poslati |
-| --- | --- |
-| Postavljanje | sliku ekrana: „Aplikacija radi. Baza odgovara: …“ |
-| Korak 0 | upit za deset najvećih kupaca i njegov rezultat |
-| A1 | link na commit i sliku liste, unosa i četiri odbijena unosa |
-| A2 | link na commit i sliku promjene statusa i novog polja |
-| Predaja i prezentacija | link na svoj repozitorij |
-| Bonus B i C | link na commit i slike, za svaku fazu posebno |
+Poslije svakog koraka pushaj i pošalji mentoru link na commit i sliku ekrana. Dok čekaš odgovor, radi dalje.
 
 ## Pomoć
 
-- Pitanja o tome šta zadatak znači postavi osobi koja pregleda, bilo kad.
-- Za tehnički problem prvo pročitaj grešku i dokumentaciju, pa pretraži. Ako ne ide, pošalji podršci poruku u četiri reda:
+- Pitanja o tome šta zadatak znači postavi mentoru, bilo kad.
+- Za tehnički problem prvo pročitaj grešku i dokumentaciju, pa pretraži. Kad si probao bar dvije stvari i obje upisao pod *Probano*, pošalji podršci poruku u četiri reda:
 
   ```text
   Radim: …
@@ -32,12 +25,18 @@ Poslije svakog koraka pushaj i pošalji osobi koja ti je poslala zadatak (u dalj
 - AI koristi slobodno. Ne predaj kod koji ne razumiješ. Na prezentaciji objašnjavaš i dio koda koji je napisao AI.
 - Commitaj kad nešto proradi (lista, unos, validacija…) i prije svakog pitanja podršci, pa pushaj na GitHub.
 
-Podrška (kad zapneš): ______________________________
+Podrška: ______________________________
 
 ## Postavljanje
 
-1. Instaliraj [Git](https://git-scm.com/downloads), [Node.js](https://nodejs.org/en/download) (LTS, v24 ili novija) i editor, npr. [VS Code](https://code.visualstudio.com/). Terminal: na macOS-u *Terminal*, na Windowsu *PowerShell*, ili [terminal u VS Code-u](https://code.visualstudio.com/docs/terminal/getting-started).
-2. Napravi [GitHub nalog](https://github.com/signup). Na stranici ovog repozitorija klikni **Use this template** → **Create a new repository** ([uputstvo](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)). Tako dobiješ svoju kopiju. Preuzmi je na računar i instaliraj pakete:
+1. Instaliraj [Git](https://git-scm.com/downloads), [Node.js](https://nodejs.org/en/download) (LTS, v24 ili novija) i editor, npr. [VS Code](https://code.visualstudio.com/). Terminal: na macOS-u *Terminal*, na Windowsu *PowerShell*, ili [terminal u VS Code-u](https://code.visualstudio.com/docs/terminal/getting-started). Git prije prvog commita traži ime i email ([uputstvo](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup)):
+
+   ```bash
+   git config --global user.name "Ime Prezime"
+   git config --global user.email "adresa@primjer.ba"
+   ```
+
+2. Napravi [GitHub nalog](https://github.com/signup). Na stranici ovog repozitorija klikni **Use this template** → **Create a new repository** ([uputstvo](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)). Repozitorij može biti javni, ili privatni s mentorom dodanim kao saradnik ([uputstvo](https://docs.github.com/en/account-and-profile/how-tos/setting-up-and-managing-your-personal-account-on-github/managing-access-to-your-personal-repositories/inviting-collaborators-to-a-personal-repository)). Za push, i za kloniranje privatnog repozitorija, GitHub traži prijavu: VS Code te sam pita da se prijaviš ([uputstvo](https://code.visualstudio.com/docs/sourcecontrol/github)), a izvan njega pokreni `gh auth login` ([GitHub CLI](https://cli.github.com/manual/gh_auth_login)). Preuzmi repozitorij na računar i instaliraj pakete:
 
    ```bash
    git clone https://github.com/<tvoj-nalog>/<ime-repozitorija>.git
@@ -45,8 +44,16 @@ Podrška (kad zapneš): ______________________________
    npm install
    ```
 
-3. Napravi bazu na [Neonu](https://neon.com) (besplatni plan, bez instalacije): nalog, novi projekat, region u Evropi. U konzoli klikni **Connect**, isključi **Connection pooling** i kopiraj connection string ([uputstvo](https://neon.com/docs/connect/connect-from-any-app)).
-4. Kopiraj `.env.example` u `.env.local` (`cp .env.example .env.local`, na Windowsu `copy`). U `.env.local` upiši svoj string kao `DATABASE_URL` i na kraju stavi `?sslmode=verify-full` umjesto onoga što Neon daje.
+3. Napravi bazu. Treba ti PostgreSQL. Radi bilo koja opcija iz tabele, a razlikuje se samo connection string. Najjednostavniji je Neon: nema instalacije, a SQL pokrećeš u browseru.
+
+   | Opcija | Connection string | SQL pokrećeš u |
+   | --- | --- | --- |
+   | [Neon](https://neon.com/docs/connect/connect-from-any-app), besplatno u oblaku (preporuka) | Nalog, projekat u Evropi. **Connect**, isključi **Connection pooling**, kopiraj string. Na kraju stavi `?sslmode=verify-full` umjesto onoga što Neon daje. | SQL Editoru u konzoli |
+   | [Supabase](https://supabase.com/docs/guides/database/connecting-to-postgres), besplatno u oblaku | Nalog, projekat u Evropi. **Connect** → **Session pooler**, kopiraj string i upiši lozinku baze. Na kraju dodaj `?sslmode=no-verify`. | SQL Editoru u konzoli |
+   | [Lokalni PostgreSQL](https://www.postgresql.org/download/), instalacija na računar | `postgresql://postgres:LOZINKA@127.0.0.1:5432/postgres`, s korisnikom i lozinkom iz instalacije | pgAdminu ili psql-u |
+   | [PGlite](https://pglite.dev/docs/pglite-socket), PostgreSQL u memoriji, bez naloga i instalacije | U drugom terminalu pokreni `npx -y -p @electric-sql/pglite-socket@0.2.13 pglite-server -m 10` i ostavi ga upaljenog. String: `postgresql://postgres:postgres@127.0.0.1:5432/postgres`. Kad ga ugasiš, podaci nestanu, pa opet `npm run baza`. | psql-u ili drugom PostgreSQL klijentu (nema svoj editor) |
+
+4. Kopiraj `.env.example` u `.env.local` (`cp .env.example .env.local`, na Windowsu `copy`). U `.env.local` upiši svoj string kao `DATABASE_URL`.
 5. Napuni bazu i pokreni aplikaciju:
 
    ```bash
@@ -54,52 +61,51 @@ Podrška (kad zapneš): ______________________________
    npm run dev
    ```
 
-   Na <http://localhost:3000> treba pisati „Aplikacija radi.“ i „Baza odgovara: kupci 60, proizvodi 40, narudzbe 2068, stavke_narudzbe 10095.“ `app/page.tsx` je samo ta provjera; zamijeni je svojim radom.
+   `npm run baza` ispiše „Baza je spremna.“ Na <http://localhost:3000> treba pisati „Aplikacija radi.“ i „Baza odgovara: kupci 60, proizvodi 40, narudzbe 2068, stavke_narudzbe 10095.“ `app/page.tsx` je samo ta provjera; zamijeni je svojim radom.
 
-SQL nad bazom pokrećeš u Neon konzoli, u **SQL Editoru** ([uputstvo](https://neon.com/docs/get-started/query-with-neon-sql-editor)).
+**Česti problemi**
 
 | Poruka | Šta uraditi |
 | --- | --- |
 | `nema DATABASE_URL` | Nema `.env.local` (korak 4). |
 | `relation "kupci" does not exist` | Pokreni `npm run baza`. |
+| `ECONNREFUSED` | Lokalna baza ili PGlite nije pokrenut. |
 
-**Za osobu koja pomaže kod kuće**
-
-- Git prije prvog commita traži ime i email: `git config --global user.name "Ime Prezime"` i `git config --global user.email "adresa@primjer.ba"` ([uputstvo](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup)).
 - `npm install` ispiše upozorenja (`npm warn`, `vulnerabilities`). To je normalno. Problem je samo `npm error`.
-- `npm run dev` radi dok ga ne zaustaviš: **Ctrl+C** u terminalu.
+- `npm run dev` i PGlite rade dok ih ne zaustaviš: **Ctrl+C** u terminalu.
 - Finder na macOS-u ne prikazuje `.env.local`. Skrivene fajlove pokaže **Cmd+Shift+.**; u editoru se fajl vidi normalno.
+- Lozinka sa `@`, `#`, `/` ili `?` kvari connection string. Postavi lozinku od slova i brojeva.
 
 ## Korak 0: osnove
 
-Ako ove alate koristiš prvi put, prođi ova poglavlja. Za fazu A trebaju samo ona. Linkovi za faze B i C su kod tih faza.
+Ako ove alate koristiš prvi put, prođi ova poglavlja. Linkovi za faze B i C su kod tih faza.
 
 | Tema | Poglavlja | Možeš dalje kad znaš |
 | --- | --- | --- |
 | HTML i CSS | MDN: [HTML](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content), [CSS](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content) | napraviti stranicu s formom |
-| JavaScript | MDN: [Variables](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Variables), [Functions](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Functions), [Arrays](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Arrays), [Objects](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Object_basics) | napisati funkciju koja filtrira i sabira niz objekata |
+| JavaScript | MDN: [Functions](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Functions), [Arrays](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Arrays), [Objects](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Object_basics), [Promises i async/await](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Async_JS/Promises) | napisati funkciju koja filtrira i sabira niz objekata; objasniti šta radi `await` |
 | TypeScript | [TS for JS Programmers](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html), [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) | dodati tipove funkciji i objektu |
 | React | [Quick Start](https://react.dev/learn), [Thinking in React](https://react.dev/learn/thinking-in-react), [State](https://react.dev/learn/state-a-components-memory) | napraviti komponentu s formom i stanjem |
 | Next.js | Learn: [Getting Started](https://nextjs.org/learn/dashboard-app/getting-started), [Fetching Data](https://nextjs.org/learn/dashboard-app/fetching-data), [Mutating Data](https://nextjs.org/learn/dashboard-app/mutating-data), [Improving Accessibility](https://nextjs.org/learn/dashboard-app/improving-accessibility) | pročitati podatke iz baze i sačuvati formu na serveru |
 | SQL | PostgreSQL: [poglavlje 2.4–2.7](https://www.postgresql.org/docs/current/tutorial-sql.html), [Joins](https://www.postgresql.org/docs/current/tutorial-join.html), [Foreign Keys](https://www.postgresql.org/docs/current/tutorial-fk.html) | napisati `SELECT` s `JOIN` i `GROUP BY` |
 | Git | Pro Git: [Recording Changes](https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository), [Branches](https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell); GitHub: [Hello World](https://docs.github.com/en/get-started/start-your-journey/hello-world) | napraviti branch, commit i push |
 
-Relacije na našim podacima: tabela čuva jednu vrstu stvari (kupac, proizvod, narudžba). Primarni ključ `id` jednoznačno označava red. Strani ključ, npr. `narudzbe.kupac_id`, pokazuje na red u drugoj tabeli. Jedna narudžba ima više stavki (1:N). Narudžbe i proizvodi su u vezi N:M preko stavki. `JOIN` spaja tabele po tim ključevima.
+Next.js kurs radi u posebnom folderu, ne u ovom repozitoriju: ima svoj starter i svoju bazu.
 
-Provjera: napiši upit koji vraća deset kupaca s najvećim prometom u zadnjoj godini podataka (naziv, broj narudžbi, promet; promet računaj po pravilima iz poglavlja 2).
+Provjera: napiši upit koji vraća deset kupaca s najvećim prometom u zadnjoj godini podataka (naziv, broj narudžbi, promet; promet računaj po pravilima iz poglavlja 2). Pokreni ga nad svojom bazom, sačuvaj kao `sql/korak0.sql` u repozitoriju, pa commitaj i pushaj. To je tvoj prvi push.
 
 ## 1. Klijent
 
-Bistra d.o.o. je izmišljena firma: distributer pića, kafe i grickalica. Snabdijeva šezdesetak kupaca: kafiće, restorane, prodavnice, hotele i firme.
+Bistra d.o.o. je izmišljena firma: distributer pića, kafe i grickalica sa šezdesetak kupaca (kafići, restorani, prodavnice, hoteli i firme).
 
-Danas narudžbe stižu telefonom, porukom i mailom. Komercijalista ih prepisuje u Excel, a skladište dobije odštampanu listu. Posljedice:
+Danas narudžbe stižu telefonom, porukom i mailom. Komercijalista ih prepisuje u Excel, a skladište dobije odštampanu listu. Zato:
 
-- greške u količinama i cijenama, i niko ne zna koja je verzija tačna;
-- kupac pita gdje mu je roba, a odgovor traže tri osobe;
+- ima grešaka u količinama i cijenama, i niko ne zna koja je verzija tačna;
+- kad kupac pita gdje mu je roba, odgovor traže tri osobe;
 - vlasnik ne vidi koji kupci i proizvodi donose novac, ni šta je u padu;
-- nabavka nagađa koliko robe naručiti. Ljeti nestane vode, zimi višak stoji u skladištu.
+- nabavka nagađa: ljeti nestane vode, zimi višak stoji u skladištu.
 
-Bistra traži: jedno mjesto za narudžbe (unos, pregled, status), pregled poslovanja i prognozu potražnje za nabavku.
+Bistra traži jedno mjesto za narudžbe (unos, pregled, status), pregled poslovanja i prognozu potražnje za nabavku.
 
 | Ko koristi | Šta radi |
 | --- | --- |
@@ -140,9 +146,7 @@ Pravila:
 - Otkazane narudžbe ne ulaze u promet.
 - Neaktivan proizvod se ne nudi u novim narudžbama, ali ostaje u starim.
 
-U podacima ima narudžbi koje stoje u `U_OBRADI` ili `POSLATA` više od 7 dana od datuma narudžbe, a isporuka traje do 3 radna dana. Ako ih nađeš, pokaži ih na prezentaciji.
-
-Promjenu šeme radi kao migraciju: SQL fajl u svom repozitoriju, pokrenut u SQL Editoru. `npm run baza` vraća originalnu šemu, pa migracije nakon toga pokreni ponovo.
+Promjenu šeme radi kao migraciju: SQL fajl u svom repozitoriju, pokrenut tamo gdje pokrećeš SQL (Postavljanje, korak 3). `npm run baza` vraća originalnu šemu, pa migracije nakon toga pokreni ponovo.
 
 ## 3. Faze
 
@@ -161,9 +165,7 @@ Pravila unosa, u formi i na serveru:
 - proizvod je obavezan i aktivan, a isti proizvod se javlja samo jednom po narudžbi;
 - količina je cijeli broj veći od nule, cijena nula ili veća, rabat od 0 do 100.
 
-Probaj ispravan unos, unos bez kupca, bez stavki, s količinom 0 i s negativnom cijenom. Neispravan unos ne smije završiti u bazi ni kad privremeno isključiš provjeru u formi. Kad unos ne prođe, poruka kaže koje polje nije ispravno i zašto.
-
-**Gotovo kad:** nova narudžba ostaje i nakon osvježavanja stranice; sva četiri neispravna unosa server odbija; znaš pokazati put jednog zahtjeva od forme do baze i nazad.
+**Gotovo kad:** nova narudžba ostaje i nakon osvježavanja stranice; server odbija sva četiri neispravna unosa (bez kupca, bez stavki, s količinom 0, s negativnom cijenom) i kad isključiš provjeru u formi, s porukom koje polje nije ispravno i zašto; znaš pokazati put jednog zahtjeva od forme do baze i nazad.
 
 **A2. Status, izmjena, novo polje.** Napravi:
 
@@ -171,7 +173,7 @@ Probaj ispravan unos, unos bez kupca, bez stavki, s količinom 0 i s negativnom 
 2. izmjenu i brisanje narudžbe, samo dok je `KREIRANA`;
 3. jedno novo polje, npr. način plaćanja, tako da se vidi u formi, sačuva u bazi i prikaže u listi; uz to ide migracija.
 
-**Gotovo kad:** server odbija svaki prelaz i svaku izmjenu koje tabela ne dozvoljava; novo polje radi od forme do baze.
+**Gotovo kad:** server odbija svaki prelaz i svaku izmjenu koje tabela ne dozvoljava; novo polje radi od forme do baze, uz migraciju.
 
 **Predaja.** Link na tvoj repozitorij. U njegovom README-u: kako pokrenuti aplikaciju i šta još ne radi.
 
@@ -183,7 +185,7 @@ Vlasnik hoće pregled poslovanja. Napravi stranicu s tri do četiri grafika ([MU
 - Koji kupci i proizvodi donose najviše? Ko je prestao naručivati?
 - Kako se vrste kupaca i kategorije razlikuju kroz godinu?
 - Šta se desilo s cijenama i kako je to uticalo na promet?
-- Koje narudžbe stoje u `U_OBRADI` ili `POSLATA` više od 7 dana od datuma narudžbe?
+- Koje narudžbe stoje u `U_OBRADI` ili `POSLATA` više od 7 dana od datuma narudžbe? Isporuka traje do 3 radna dana.
 
 Upite piši u SQL-u i drži ih u repozitoriju.
 
@@ -219,49 +221,38 @@ Ovo koristimo za faze A i B. Ako izabereš alternativu, na prezentaciji objasni 
 | Grafici | [MUI X Charts](https://mui.com/x/react-charts/quickstart/) | [Recharts](https://recharts.github.io/en-US/guide/getting-started/), [Apache ECharts](https://echarts.apache.org/handbook/en/get-started/) |
 | Forme i validacija | [React Hook Form](https://react-hook-form.com/get-started) + [Zod](https://zod.dev/) | [TanStack Form](https://tanstack.com/form/latest/docs/overview), [Valibot](https://valibot.dev/guides/introduction/) |
 | Pisanje u bazu | [Server Actions](https://nextjs.org/docs/app/getting-started/mutating-data) | [Route Handlers](https://nextjs.org/docs/app/getting-started/route-handlers) |
-| Baza | [PostgreSQL](https://www.postgresql.org/docs/current/) na [Neonu](https://neon.com/docs/introduction) | [Supabase](https://supabase.com/docs), [lokalni PostgreSQL](https://www.postgresql.org/download/) |
+| Baza | [PostgreSQL](https://www.postgresql.org/docs/current/) na Neonu | Supabase, lokalni PostgreSQL, PGlite (Postavljanje, korak 3) |
 | Pristup bazi | SQL s [node-postgres](https://node-postgres.com/) ili [Drizzle](https://orm.drizzle.team/docs/overview) | [Prisma](https://www.prisma.io/docs), [Kysely](https://kysely.dev/docs/intro) |
 | Testovi | [Vitest](https://vitest.dev/guide/), [Playwright](https://playwright.dev/docs/intro) | [Jest](https://jestjs.io/docs/getting-started), [Cypress](https://docs.cypress.io/app/get-started/why-cypress) |
 
 Firma koristi i Express, TypeORM, Oracle, Keycloak, nginx i Turborepo. Za ovaj zadatak nisu potrebni.
 
-## 5. Bonus
+## 5. Prezentacija i kontrolna lista
 
-Uz faze B i C, bonus je i:
+Prezentacija je uživo ili preko video poziva, s mentorom. Aplikaciju pokrećeš na svom računaru i dijeliš ekran. Slajdovi nisu obavezni. Kontrolna lista je dnevni red: idemo redom, kolonu *Ti* popunjavaš ti, kolonu *Mentor* mentor.
 
-- testovi: Vitest za pravila unosa, Playwright za unos narudžbe od početka do kraja;
-- skica arhitekture u README-u: šta radi browser, šta server, šta baza;
-- kratak video ili GIF glavnog toka;
-- CI: GitHub Actions pokreće lint, build i testove na svaki push.
-
-## 6. Prezentacija i kontrolna lista
-
-Prezentacija je uživo ili preko video poziva, s osobom koja pregleda. Aplikaciju pokrećeš na svom računaru i dijeliš ekran. Kontrolna lista je dnevni red: idemo redom, kolonu *Ti* popunjavaš ti, kolonu *Pregled* osoba koja pregleda.
-
-| Predaja | Ti | Pregled |
+| Predaja | Ti | Mentor |
 | --- | :---: | :---: |
-| Repozitorij je dostupan; README kaže kako pokrenuti aplikaciju i šta još ne radi | ☐ | ☐ |
-| Aplikacija se pokreće po tom README-u na drugom računaru | ☐ | ☐ |
-| A1: lista, detalji i unos rade; nova narudžba ostaje nakon osvježavanja | ☐ | ☐ |
-| A1: četiri neispravna unosa server odbija, s porukom koje polje i zašto | ☐ | ☐ |
-| A2: server dozvoljava samo prelaze i izmjene iz tabele | ☐ | ☐ |
-| A2: novo polje dodano, s migracijom | ☐ | ☐ |
+| Repozitorij je dostupan mentoru; README kaže kako pokrenuti aplikaciju i šta još ne radi | ☐ | ☐ |
+| Aplikacija se pokreće po tom README-u na drugom računaru ili kad je kloniraš u novi prazan folder | ☐ | ☐ |
+| A1: ispunjeno sve pod *Gotovo kad* | ☐ | ☐ |
+| A2: ispunjeno sve pod *Gotovo kad* | ☐ | ☐ |
 | U repozitoriju nema lozinki ni API ključeva | ☐ | ☐ |
 
-| Prezentacija | Ti | Pregled |
+| Prezentacija | Ti | Mentor |
 | --- | :---: | :---: |
 | Glavni tok pokazan uživo | ☐ | ☐ |
 | Objašnjen put jednog zahtjeva od forme do baze | ☐ | ☐ |
-| Objašnjen dio koda koji je napisao AI | ☐ | ☐ |
+| Objašnjen dio koda koji je napisao AI (ako si koristio AI) | ☐ | ☐ |
 | Objašnjena jedna odluka i alternativa koja nije izabrana | ☐ | ☐ |
 | Pokazan jedan problem: kako je nađen i riješen | ☐ | ☐ |
 | Rečeno šta bi bilo sljedeće | ☐ | ☐ |
 
-| Bonus | Ti | Pregled |
+| Bonus | Ti | Mentor |
 | --- | :---: | :---: |
-| Faza B: grafici i `ANALIZA.md` s nalazima | ☐ | ☐ |
-| Faza C1: prognoza izmjerena u odnosu na osnovu | ☐ | ☐ |
-| Faza C2: asistent s alatima | ☐ | ☐ |
-| Testovi | ☐ | ☐ |
-| Skica arhitekture ili video | ☐ | ☐ |
-| CI (GitHub Actions) | ☐ | ☐ |
+| Faza B: ispunjeno sve pod *Gotovo kad* | ☐ | ☐ |
+| Faza C1: ispunjeno sve pod *Gotovo kad* | ☐ | ☐ |
+| Faza C2: ispunjeno sve pod *Gotovo kad* | ☐ | ☐ |
+| Testovi: Vitest za pravila unosa, Playwright za unos narudžbe od početka do kraja | ☐ | ☐ |
+| Skica arhitekture u README-u (šta radi browser, šta server, šta baza) ili kratak video ili GIF glavnog toka | ☐ | ☐ |
+| CI: GitHub Actions pokreće lint, build i testove na svaki push | ☐ | ☐ |
