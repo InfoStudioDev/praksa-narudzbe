@@ -1,0 +1,41 @@
+id,sifra,naziv,kategorija_id,jedinica_mjere,cijena,aktivan
+1,VOD-001,"Prirodna mineralna voda 0,5 l",1,kom,0.85,true
+2,VOD-002,"Gazirana mineralna voda 0,5 l",1,kom,0.90,true
+3,VOD-003,"Prirodna voda 1,5 l",1,kom,1.20,true
+4,VOD-004,"Gazirana voda 1,5 l",1,kom,1.30,true
+5,VOD-005,"Voda 0,25 l staklo",1,kom,0.95,false
+6,VOD-006,Voda 5 l,1,kom,2.40,true
+7,SOK-001,Sok od jabuke 1 l,2,kom,2.60,true
+8,SOK-002,Sok od narandže 1 l,2,kom,2.90,true
+9,SOK-003,"Sok od breskve 0,2 l staklo",2,kom,1.40,true
+10,SOK-004,"Ledeni čaj breskva 0,5 l",2,kom,1.60,true
+11,SOK-005,"Ledeni čaj limun 0,5 l",2,kom,1.60,true
+12,SOK-006,"Limunada 0,33 l",2,kom,1.50,true
+13,SOK-007,"Gazirani sok cola 0,33 l",2,kom,1.45,true
+14,SOK-008,"Gazirani sok narandža 0,33 l",2,kom,1.45,true
+15,KAF-001,Kafa mljevena 500 g,3,kom,11.50,true
+16,KAF-002,Kafa u zrnu 1 kg,3,kom,27.00,true
+17,KAF-003,Espresso kapsule 50 kom,3,pak,16.50,true
+18,KAF-004,Instant kafa 200 g,3,kom,9.80,true
+19,KAF-005,Čaj kamilica 20 kesica,3,pak,2.40,true
+20,KAF-006,Čaj nana 20 kesica,3,pak,2.40,true
+21,KAF-007,Crni čaj 20 kesica,3,pak,2.60,true
+22,KAF-008,Topla čokolada 25 kesica,3,pak,8.90,true
+23,GRI-001,Čips slani 150 g,4,kom,2.70,true
+24,GRI-002,Čips paprika 150 g,4,kom,2.70,true
+25,GRI-003,Kikiriki slani 200 g,4,kom,3.10,true
+26,GRI-004,Kukuruzni flips 50 g,4,kom,0.90,true
+27,GRI-005,Perece slane 200 g,4,kom,1.90,true
+28,GRI-006,Krekeri 100 g,4,kom,1.30,true
+29,GRI-007,Kokice 90 g,4,kom,1.20,true
+30,GRI-008,Miješani orašasti plodovi 150 g,4,kom,4.90,true
+31,SLA-001,Čokolada mliječna 100 g,5,kom,2.20,true
+32,SLA-002,Čokolada s lješnikom 100 g,5,kom,2.50,true
+33,SLA-003,Keks čokoladni 200 g,5,kom,2.10,true
+34,SLA-004,Napolitanke 250 g,5,kom,2.80,true
+35,SLA-005,Bombone voćne 100 g,5,kom,1.40,true
+36,SLA-006,Žvakaće gume 10 kom,5,kom,0.80,true
+37,POT-001,Papirne salvete 100 kom,6,pak,1.60,true
+38,POT-002,Šećer u kesicama 1000 kom,6,pak,14.00,true
+39,POT-003,Slamke 200 kom,6,pak,3.20,true
+40,POT-004,"Papirne čaše 0,2 l 50 kom",6,pak,3.90,true
