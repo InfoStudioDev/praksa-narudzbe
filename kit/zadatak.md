@@ -143,7 +143,7 @@ Ovaj dio može biti u Pythonu. Instaliraj verziju koju podržava [PyTorch](https
 - Asistent ne piše proizvoljan SQL. Napiši mu nekoliko alata samo za čitanje (tool calling): promet po kupcu, top proizvodi, prognoza i slično.
 - Asistent smije pozvati više alata zaredom, npr. prognozu pa cijene ([multi-step](https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling)).
 - Prikaži koje je alate pozvao.
-- API ključ je u `.env.local`, nikad u kodu ni u repozitoriju. Za ključ pitaj podršku. Bez ključa koristi [Ollama](https://ai-sdk.dev/providers/community-providers/ollama) s [modelom koji podržava alate](https://ollama.com/search?c=tools).
+- Model pokreni lokalno: [Ollama](https://ai-sdk.dev/providers/community-providers/ollama) s [modelom koji podržava alate](https://ollama.com/search?c=tools). Ako koristiš API s ključem, ključ je u `.env.local`, nikad u kodu ni u repozitoriju.
 - Zapiši bar dva pitanja na koja asistent odgovara pogrešno i zašto.
 
 **Gotovo kad:** prognoza je bolja od osnove ili znaš objasniti zašto nije; asistent odgovara iz podataka i vidi se koje je alate koristio.
