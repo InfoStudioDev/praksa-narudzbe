@@ -6,7 +6,9 @@ Praviš aplikaciju za narudžbe za klijenta Bistra d.o.o. Pored koda gledamo kak
 
 ## Redoslijed
 
-| Korak | Kad završiš, pošalji podršci |
+Poslije svakog koraka pushaj i pošalji osobi koja ti je poslala zadatak (u daljem tekstu: osoba koja pregleda):
+
+| Korak | Šta poslati |
 | --- | --- |
 | Postavljanje | sliku ekrana: „Aplikacija radi. Baza odgovara: …“ |
 | Korak 0 | upit za deset najvećih kupaca i njegov rezultat |
@@ -17,8 +19,8 @@ Praviš aplikaciju za narudžbe za klijenta Bistra d.o.o. Pored koda gledamo kak
 
 ## Pomoć
 
-- Pitanja o tome šta zadatak znači postavi bilo kad.
-- Za tehnički problem prvo pročitaj grešku i dokumentaciju, pa pretraži. Ako ne ide, pošalji poruku u četiri reda:
+- Pitanja o tome šta zadatak znači postavi osobi koja pregleda, bilo kad.
+- Za tehnički problem prvo pročitaj grešku i dokumentaciju, pa pretraži. Ako ne ide, pošalji podršci poruku u četiri reda:
 
   ```text
   Radim: …
@@ -30,14 +32,16 @@ Praviš aplikaciju za narudžbe za klijenta Bistra d.o.o. Pored koda gledamo kak
 - AI koristi slobodno. Ne predaj kod koji ne razumiješ. Na prezentaciji objašnjavaš i dio koda koji je napisao AI.
 - Commitaj kad nešto proradi (lista, unos, validacija…) i prije svakog pitanja podršci, pa pushaj na GitHub.
 
-Podrška: ______________________________
+Podrška (kad zapneš): ______________________________
 
 ## Postavljanje
 
 1. Instaliraj [Git](https://git-scm.com/downloads), [Node.js](https://nodejs.org/en/download) (LTS, v24 ili novija) i editor, npr. [VS Code](https://code.visualstudio.com/). Terminal: na macOS-u *Terminal*, na Windowsu *PowerShell*, ili [terminal u VS Code-u](https://code.visualstudio.com/docs/terminal/getting-started).
-2. Napravi [GitHub nalog](https://github.com/signup). Na stranici ovog repozitorija klikni **Use this template** → **Create a new repository** ([uputstvo](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)). Kloniraj svoj novi repozitorij i u njemu pokreni:
+2. Napravi [GitHub nalog](https://github.com/signup). Na stranici ovog repozitorija klikni **Use this template** → **Create a new repository** ([uputstvo](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)). Tako dobiješ svoju kopiju. Preuzmi je na računar i instaliraj pakete:
 
    ```bash
+   git clone https://github.com/<tvoj-nalog>/<ime-repozitorija>.git
+   cd <ime-repozitorija>
    npm install
    ```
 
@@ -136,7 +140,7 @@ Pravila:
 - Otkazane narudžbe ne ulaze u promet.
 - Neaktivan proizvod se ne nudi u novim narudžbama, ali ostaje u starim.
 
-U podacima ima narudžbi koje stoje u `U_OBRADI` ili `POSLATA` više od 7 dana od datuma narudžbe, a isporuka traje do 3 dana. Ako ih nađeš, pokaži ih na prezentaciji.
+U podacima ima narudžbi koje stoje u `U_OBRADI` ili `POSLATA` više od 7 dana od datuma narudžbe, a isporuka traje do 3 radna dana. Ako ih nađeš, pokaži ih na prezentaciji.
 
 Promjenu šeme radi kao migraciju: SQL fajl u svom repozitoriju, pokrenut u SQL Editoru. `npm run baza` vraća originalnu šemu, pa migracije nakon toga pokreni ponovo.
 
@@ -232,7 +236,7 @@ Uz faze B i C, bonus je i:
 
 ## 6. Prezentacija i kontrolna lista
 
-Prezentacija je uživo ili preko video poziva. Prisutni su ti, osoba koja pregleda i podrška. Aplikaciju pokrećeš na svom računaru i dijeliš ekran. Kontrolna lista je dnevni red: idemo redom, kolonu *Ti* popunjavaš ti, kolonu *Pregled* osoba koja pregleda.
+Prezentacija je uživo ili preko video poziva, s osobom koja pregleda. Aplikaciju pokrećeš na svom računaru i dijeliš ekran. Kontrolna lista je dnevni red: idemo redom, kolonu *Ti* popunjavaš ti, kolonu *Pregled* osoba koja pregleda.
 
 | Predaja | Ti | Pregled |
 | --- | :---: | :---: |
