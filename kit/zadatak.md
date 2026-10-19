@@ -8,7 +8,7 @@ Praviš aplikaciju za narudžbe za klijenta Bistra d.o.o. Pripremljeno je samo o
 
 Postavljanje → Korak 0 → A1 → A2 → bonus iz kontrolne liste, ako želiš → predaja i prezentacija.
 
-Poslije svakog koraka pushaj i pošalji mentoru link na commit i sliku ekrana. Dok čekaš odgovor, radi dalje.
+Poslije svakog koraka pushaj i pošalji mentoru link na commit i sliku ekrana (za postavljanje samo sliku). Dok čekaš odgovor, radi dalje.
 
 ## Pomoć
 
@@ -22,7 +22,7 @@ Poslije svakog koraka pushaj i pošalji mentoru link na commit i sliku ekrana. D
   Očekujem: …
   ```
 
-- AI koristi slobodno. Ne predaj kod koji ne razumiješ. Na prezentaciji objašnjavaš i dio koda koji je napisao AI.
+- AI koristi slobodno. Ne predaj kod koji ne razumiješ. Ako koristiš AI, na prezentaciji objašnjavaš i dio koda koji je on napisao.
 - Commitaj kad nešto proradi (lista, unos, validacija…) i prije svakog pitanja podršci, pa pushaj na GitHub.
 
 Podrška: ______________________________
@@ -36,7 +36,7 @@ Podrška: ______________________________
    git config --global user.email "adresa@primjer.ba"
    ```
 
-2. Napravi [GitHub nalog](https://github.com/signup). Na stranici ovog repozitorija klikni **Use this template** → **Create a new repository** ([uputstvo](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)). Repozitorij može biti javni, ili privatni s mentorom dodanim kao saradnik ([uputstvo](https://docs.github.com/en/account-and-profile/how-tos/setting-up-and-managing-your-personal-account-on-github/managing-access-to-your-personal-repositories/inviting-collaborators-to-a-personal-repository)). Za push, i za kloniranje privatnog repozitorija, GitHub traži prijavu: VS Code te sam pita da se prijaviš ([uputstvo](https://code.visualstudio.com/docs/sourcecontrol/github)), a izvan njega pokreni `gh auth login` ([GitHub CLI](https://cli.github.com/manual/gh_auth_login)). Preuzmi repozitorij na računar i instaliraj pakete:
+2. Napravi [GitHub nalog](https://github.com/signup). Na stranici ovog repozitorija klikni **Use this template** → **Create a new repository** ([uputstvo](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)). Repozitorij može biti javni ili privatni, s mentorom dodanim kao saradnikom ([uputstvo](https://docs.github.com/en/account-and-profile/how-tos/setting-up-and-managing-your-personal-account-on-github/managing-access-to-your-personal-repositories/inviting-collaborators-to-a-personal-repository)). Za push, i za kloniranje privatnog repozitorija, GitHub traži prijavu: VS Code te sam pita da se prijaviš ([uputstvo](https://code.visualstudio.com/docs/sourcecontrol/github)), a izvan njega instaliraj [GitHub CLI](https://cli.github.com/) i pokreni `gh auth login` ([uputstvo](https://cli.github.com/manual/gh_auth_login)). Preuzmi repozitorij na računar i instaliraj pakete:
 
    ```bash
    git clone https://github.com/<tvoj-nalog>/<ime-repozitorija>.git
@@ -44,14 +44,14 @@ Podrška: ______________________________
    npm install
    ```
 
-3. Napravi bazu. Treba ti PostgreSQL. Radi bilo koja opcija iz tabele, a razlikuje se samo connection string. Najjednostavniji je Neon: nema instalacije, a SQL pokrećeš u browseru.
+3. Napravi bazu. Treba ti PostgreSQL. Aplikacija i `npm run baza` rade s bilo kojom opcijom iz tabele; razlikuje se samo connection string. Najjednostavniji je Neon: nema instalacije, a SQL pokrećeš u browseru.
 
    | Opcija | Connection string | SQL pokrećeš u |
    | --- | --- | --- |
    | [Neon](https://neon.com/docs/connect/connect-from-any-app), besplatno u oblaku (preporuka) | Nalog, projekat u Evropi. **Connect**, isključi **Connection pooling**, kopiraj string. Na kraju stavi `?sslmode=verify-full` umjesto onoga što Neon daje. | SQL Editoru u konzoli |
    | [Supabase](https://supabase.com/docs/guides/database/connecting-to-postgres), besplatno u oblaku | Nalog, projekat u Evropi. **Connect** → **Session pooler**, kopiraj string i upiši lozinku baze. Na kraju dodaj `?sslmode=no-verify`. | SQL Editoru u konzoli |
    | [Lokalni PostgreSQL](https://www.postgresql.org/download/), instalacija na računar | `postgresql://postgres:LOZINKA@127.0.0.1:5432/postgres`, s korisnikom i lozinkom iz instalacije | pgAdminu ili psql-u |
-   | [PGlite](https://pglite.dev/docs/pglite-socket), PostgreSQL u memoriji, bez naloga i instalacije | U drugom terminalu pokreni `npx -y -p @electric-sql/pglite-socket@0.2.13 pglite-server -m 10` i ostavi ga upaljenog. String: `postgresql://postgres:postgres@127.0.0.1:5432/postgres`. Kad ga ugasiš, podaci nestanu, pa opet `npm run baza`. | psql-u ili drugom PostgreSQL klijentu (nema svoj editor) |
+   | [PGlite](https://pglite.dev/docs/pglite-socket), PostgreSQL u memoriji, bez naloga | U drugom terminalu pokreni `npx -y -p @electric-sql/pglite-socket@0.2.13 pglite-server -m 10` i ostavi ga upaljen. String: `postgresql://postgres:postgres@127.0.0.1:5432/postgres`. Kad ga ugasiš, podaci nestanu, pa opet `npm run baza`. | psql-u ili drugom PostgreSQL klijentu, koji instaliraš posebno |
 
 4. Kopiraj `.env.example` u `.env.local` (`cp .env.example .env.local`, na Windowsu `copy`). U `.env.local` upiši svoj string kao `DATABASE_URL`.
 5. Napuni bazu i pokreni aplikaciju:
@@ -165,7 +165,7 @@ Pravila unosa, u formi i na serveru:
 - proizvod je obavezan i aktivan, a isti proizvod se javlja samo jednom po narudžbi;
 - količina je cijeli broj veći od nule, cijena nula ili veća, rabat od 0 do 100.
 
-**Gotovo kad:** nova narudžba ostaje i nakon osvježavanja stranice; server odbija sva četiri neispravna unosa (bez kupca, bez stavki, s količinom 0, s negativnom cijenom) i kad isključiš provjeru u formi, s porukom koje polje nije ispravno i zašto; znaš pokazati put jednog zahtjeva od forme do baze i nazad.
+**Gotovo kad:** lista, detalji i unos rade; nova narudžba ostaje i nakon osvježavanja stranice; server odbija sva četiri neispravna unosa (bez kupca, bez stavki, s količinom 0, s negativnom cijenom) i kad isključiš provjeru u formi, s porukom koje polje nije ispravno i zašto; znaš pokazati put jednog zahtjeva od forme do baze i nazad.
 
 **A2. Status, izmjena, novo polje.** Napravi:
 
@@ -221,7 +221,7 @@ Ovo koristimo za faze A i B. Ako izabereš alternativu, na prezentaciji objasni 
 | Grafici | [MUI X Charts](https://mui.com/x/react-charts/quickstart/) | [Recharts](https://recharts.github.io/en-US/guide/getting-started/), [Apache ECharts](https://echarts.apache.org/handbook/en/get-started/) |
 | Forme i validacija | [React Hook Form](https://react-hook-form.com/get-started) + [Zod](https://zod.dev/) | [TanStack Form](https://tanstack.com/form/latest/docs/overview), [Valibot](https://valibot.dev/guides/introduction/) |
 | Pisanje u bazu | [Server Actions](https://nextjs.org/docs/app/getting-started/mutating-data) | [Route Handlers](https://nextjs.org/docs/app/getting-started/route-handlers) |
-| Baza | [PostgreSQL](https://www.postgresql.org/docs/current/) na Neonu | Supabase, lokalni PostgreSQL, PGlite (Postavljanje, korak 3) |
+| Baza | [PostgreSQL](https://www.postgresql.org/docs/current/), bilo koja opcija iz Postavljanja (korak 3), bez objašnjenja | — |
 | Pristup bazi | SQL s [node-postgres](https://node-postgres.com/) ili [Drizzle](https://orm.drizzle.team/docs/overview) | [Prisma](https://www.prisma.io/docs), [Kysely](https://kysely.dev/docs/intro) |
 | Testovi | [Vitest](https://vitest.dev/guide/), [Playwright](https://playwright.dev/docs/intro) | [Jest](https://jestjs.io/docs/getting-started), [Cypress](https://docs.cypress.io/app/get-started/why-cypress) |
 
@@ -234,7 +234,7 @@ Prezentacija je uživo ili preko video poziva, s mentorom. Aplikaciju pokrećeš
 | Predaja | Ti | Mentor |
 | --- | :---: | :---: |
 | Repozitorij je dostupan mentoru; README kaže kako pokrenuti aplikaciju i šta još ne radi | ☐ | ☐ |
-| Aplikacija se pokreće po tom README-u na drugom računaru ili kad je kloniraš u novi prazan folder | ☐ | ☐ |
+| Aplikacija se pokreće po tom README-u na drugom računaru ili kad repozitorij kloniraš u novi prazan folder | ☐ | ☐ |
 | A1: ispunjeno sve pod *Gotovo kad* | ☐ | ☐ |
 | A2: ispunjeno sve pod *Gotovo kad* | ☐ | ☐ |
 | U repozitoriju nema lozinki ni API ključeva | ☐ | ☐ |
