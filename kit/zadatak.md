@@ -136,7 +136,7 @@ Pravila:
 - Otkazane narudžbe ne ulaze u promet.
 - Neaktivan proizvod se ne nudi u novim narudžbama, ali ostaje u starim.
 
-U podacima ima narudžbi koje predugo stoje u jednom statusu. Ako ih nađeš, pokaži ih na prezentaciji.
+U podacima ima narudžbi koje stoje u `U_OBRADI` ili `POSLATA` više od 7 dana od datuma narudžbe, a isporuka traje do 3 dana. Ako ih nađeš, pokaži ih na prezentaciji.
 
 Promjenu šeme radi kao migraciju: SQL fajl u svom repozitoriju, pokrenut u SQL Editoru. `npm run baza` vraća originalnu šemu, pa migracije nakon toga pokreni ponovo.
 
@@ -199,7 +199,7 @@ Upite piši u SQL-u i drži ih u repozitoriju.
 **C2. Asistent nad podacima.** Korisnik pita, npr. „Koji kafići u Mostaru su najviše naručivali ljeti?“ ili „Šta da naručimo za sljedeći mjesec?“, a asistent odgovara iz podataka.
 
 - Koristi [Vercel AI SDK](https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling) i model lokalno preko [Ollame](https://ai-sdk.dev/providers/community-providers/ollama), s [modelom koji podržava alate](https://ollama.com/search?c=tools). Alternative s API ključem: [Anthropic API](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview), [OpenAI API](https://developers.openai.com/api/docs/guides/function-calling). Ključ ide u `.env.local`, nikad u kod.
-- Asistent ne piše proizvoljan SQL. Napiši mu nekoliko alata samo za čitanje (tool calling): promet po kupcu, top proizvodi, prognoza i slično. Smije ih pozvati više zaredom.
+- Asistent ne piše proizvoljan SQL. Napiši mu tri do pet alata samo za čitanje (tool calling), npr. promet po kupcu, top proizvodi, prognoza. Smije ih pozvati više zaredom.
 
 **Gotovo kad:** asistent odgovara iz podataka preko tvojih alata; vidi se koje je alate pozvao; na prezentaciji pokažeš dva pitanja na koja griješi i objasniš zašto.
 
