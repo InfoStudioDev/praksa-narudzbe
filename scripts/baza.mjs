@@ -15,8 +15,12 @@ const client = new pg.Client({ connectionString: process.env.DATABASE_URL, conne
 try {
   await client.connect();
   const { rows } = await client.query("select to_regclass('public.narudzbe') is not null as postoji");
-  if (rows[0].postoji && !ispocetka) {
-    console.log("Tabele već postoje. Za početne podatke ispočetka: npm run baza -- --ispocetka");
+  const postoji = rows[0].postoji;
+  const ima = postoji && (await client.query("select exists(select 1 from narudzbe) as ima")).rows[0].ima;
+  if (postoji && !ispocetka) {
+    console.log(ima
+      ? "Tabele već postoje. Za početne podatke ispočetka: npm run baza -- --ispocetka"
+      : "Tabele postoje, ali su prazne. Pokreni: npm run baza -- --ispocetka");
   } else {
     if (ispocetka) {
       await client.query("drop table if exists stavke_narudzbe, narudzbe, proizvodi, kategorije, kupci cascade");

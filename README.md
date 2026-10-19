@@ -15,6 +15,8 @@ Podrška: ______________________________
 | Editor | pisanje koda | [VS Code](https://code.visualstudio.com/) ili [Cursor](https://cursor.com/) |
 | GitHub nalog | tvoj repozitorij | [github.com/signup](https://github.com/signup) |
 
+Terminal: na macOS-u *Terminal*, na Windowsu *PowerShell*, ili [terminal u VS Code-u](https://code.visualstudio.com/docs/terminal/getting-started). Na macOS-u `git --version` prvi put ponudi instalaciju alata; prihvati.
+
 Provjeri u terminalu:
 
 ```bash
@@ -39,7 +41,7 @@ npm install
 Baza je PostgreSQL na [Neonu](https://neon.com), besplatni plan, bez instalacije.
 
 1. Napravi nalog na Neonu i novi projekat (region u Evropi, npr. Frankfurt).
-2. U konzoli klikni **Connect** i kopiraj connection string ([uputstvo](https://neon.com/docs/connect/connect-from-any-app)).
+2. U konzoli klikni **Connect**, isključi **Connection pooling** (host bez `-pooler`) i kopiraj connection string ([uputstvo](https://neon.com/docs/connect/connect-from-any-app)).
 3. Napravi `.env.local`:
 
    ```bash
@@ -67,6 +69,7 @@ npm run dev
 Otvori <http://localhost:3000>. Vidjet ćeš:
 
 > Aplikacija radi.
+>
 > Baza odgovara: kupci 60, proizvodi 40, narudzbe 2068, stavke_narudzbe 10095.
 
 Ako to vidiš, okruženje je spremno. `app/page.tsx` je samo provjera. Zamijeni je svojim radom.
@@ -78,6 +81,8 @@ Ako to vidiš, okruženje je spremno. `app/page.tsx` je samo provjera. Zamijeni 
 | `nema DATABASE_URL` | Nema `.env.local` (korak 3). Napravi ga i ponovo pokreni naredbu. |
 | `password authentication failed` ili `getaddrinfo ENOTFOUND` | Connection string nije tačno prepisan. Kopiraj ga ponovo iz Neona. Provjeri i internet. |
 | `relation "kupci" does not exist` | Baza je prazna. Pokreni `npm run baza`. |
+| `Tabele postoje, ali su prazne` ili brojevi su 0 | Učitavanje je prekinuto. Pokreni `npm run baza -- --ispocetka`. |
+| `timeout expired` | Mreža možda blokira port 5432. Probaj s druge mreže, npr. hotspot s mobitela. |
 | `SECURITY WARNING: The SSL modes 'prefer', 'require'...` | U `.env.local` zamijeni `sslmode=require` sa `sslmode=verify-full`. |
 | Prvi upit nakon pauze traje duže | Neon uspava bazu nakon par minuta bez rada. Normalno je. |
 | Vraćanje početnih podataka | `npm run baza -- --ispocetka`. Briše tabele iz šeme i unesene podatke. |

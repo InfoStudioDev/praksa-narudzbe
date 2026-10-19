@@ -1,6 +1,6 @@
 # Praksa: aplikacija za narudžbe
 
-Pored koda gledamo kako istražuješ, rješavaš probleme i objašnjavaš odluke. Unaprijed je pripremljeno samo okruženje (vidi `README.md`). Sve ostalo gradiš samostalno.
+Pored koda gledamo kako istražuješ, rješavaš probleme i objašnjavaš odluke. Unaprijed je pripremljeno samo okruženje (vidi [README](../README.md)). Sve ostalo gradiš samostalno.
 
 **Kako se radi**
 
@@ -9,7 +9,7 @@ Pored koda gledamo kako istražuješ, rješavaš probleme i objašnjavaš odluke
 - Kad zapneš, prvo pročitaj poruku greške i dokumentaciju, pa pretraži. Ako ne ide, pošalji podršci tačnu poruku greške i šta nije pomoglo.
 - Commitaj često, s jasnim porukama.
 
-Podrška: ______________________________
+Podrška: vidi [README](../README.md).
 
 Faze idu od lakše ka težoj. Faza A je obavezna. B i C su dodatne i teže; računa se svaka završena.
 
@@ -24,7 +24,7 @@ Ako ove alate koristiš prvi put, kreni odavde. Linkovi vode na zvaničnu dokume
 | TypeScript | [TypeScript za JavaScript programere](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html) | dodati tipove funkciji i objektu |
 | React | [react.dev/learn](https://react.dev/learn) | napraviti komponentu s formom i stanjem |
 | Next.js | [Next.js Learn: Dashboard App](https://nextjs.org/learn/dashboard-app) | objasniti razliku između server i client komponente |
-| SQL i relacije | PostgreSQL: [poglavlje 2](https://www.postgresql.org/docs/current/tutorial-sql.html), [strani ključevi](https://www.postgresql.org/docs/current/tutorial-fk.html), [ograničenja](https://www.postgresql.org/docs/current/ddl-constraints.html) | napisati `SELECT` s `JOIN` i `GROUP BY` (kako pokrenuti SQL: `README.md`) |
+| SQL i relacije | PostgreSQL: [poglavlje 2](https://www.postgresql.org/docs/current/tutorial-sql.html), [strani ključevi](https://www.postgresql.org/docs/current/tutorial-fk.html), [ograničenja](https://www.postgresql.org/docs/current/ddl-constraints.html) | napisati `SELECT` s `JOIN` i `GROUP BY` (kako pokrenuti SQL: [README](../README.md#4-napuni-bazu)) |
 | Git | [Pro Git, poglavlja 1–3](https://git-scm.com/book/en/v2), [GitHub: Git basics](https://docs.github.com/en/get-started/git-basics) | napraviti branch, commit i push |
 
 Relacije na našim podacima: tabela čuva jednu vrstu stvari (kupac, proizvod, narudžba). Primarni ključ `id` jednoznačno označava red. Strani ključ, npr. `narudzbe.kupac_id`, pokazuje na red u drugoj tabeli. Jedna narudžba ima više stavki (1:N). Narudžbe i proizvodi su u vezi N:M preko stavki. `JOIN` spaja tabele po tim ključevima.
@@ -80,7 +80,7 @@ Pravila:
 - Otkazane narudžbe ne ulaze u promet.
 - Neaktivan proizvod se ne nudi u novim narudžbama, ali ostaje u starim.
 
-Podaci nisu savršeni. Ako nađeš nešto čudno, zapiši i predloži šta bi klijent trebao uraditi. Ako mijenjaš šemu, napiši migraciju (SQL fajl) i obrazloži je u dnevniku.
+Podaci nisu savršeni. Ako nađeš nešto čudno, zapiši i predloži šta bi klijent trebao uraditi. Ako mijenjaš šemu, napiši migraciju (SQL fajl) i obrazloži je u dnevniku. Migraciju pokreni u SQL Editoru ili svojom skriptom i u README-u napiši kako. `npm run baza -- --ispocetka` vraća originalnu šemu, pa migracije pokreni ponovo.
 
 ## 3. Faze
 
@@ -97,6 +97,7 @@ Radi redom. A1 i A2 se računaju posebno.
 Pravila unosa, u formi i na serveru:
 
 - kupac je obavezan i narudžba ima bar jednu stavku;
+- broj narudžbe (`broj`) je obavezan i jedinstven; odluči kako ga dodjeljuješ i zapiši zašto;
 - proizvod je obavezan i aktivan, a isti proizvod se javlja samo jednom po narudžbi;
 - količina je cijeli broj veći od nule, cijena nula ili veća, rabat od 0 do 100.
 
@@ -110,7 +111,7 @@ Probaj ispravan unos, unos bez kupca, bez stavki, s količinom 0 i s negativnom 
 2. izmjenu i brisanje: narudžbu u statusu `KREIRANA` možeš izmijeniti ili obrisati, a u statusu `U_OBRADI` samo otkazati;
 3. jedno novo polje, npr. način plaćanja, tako da se vidi u formi, sačuva u bazi i prikaže u listi. Uz to ide migracija.
 
-**Gotovo kad:** status ide samo dozvoljenim putem; poslata narudžba se ne može izmijeniti ni obrisati; novo polje radi od forme do baze.
+**Gotovo kad:** server odbija nedozvoljen prelaz statusa; izmjena i brisanje rade samo za `KREIRANA`, a `U_OBRADI` se može samo otkazati; tabela dozvoljenih prelaza je u dnevniku; novo polje radi od forme do baze.
 
 ### Faza B: analitika
 
@@ -133,15 +134,16 @@ Upite piši u SQL-u i drži ih u repozitoriju. Ne računaj sve u browseru.
 - Napravi sedmične serije količina po proizvodu ili kategoriji, samo iz početnih podataka. Pazi na nepotpune sedmice i proizvode koji se više ne prodaju.
 - Prvo napravi jednostavnu osnovu (baseline), npr. ista sedmica prošle godine ili prosjek zadnjih sedmica.
 - Onda model: Chronos-2 ili TimesFM. Sakrij zadnjih 12 sedmica, prognoziraj ih i izmjeri grešku (npr. MAE) za model i za osnovu.
-- Prikaži prognozu u aplikaciji uz stvarne vrijednosti.
+- U aplikaciji prikaži stvarne vrijednosti, prognozu za sakrivenih 12 sedmica i prognozu za osam sedmica nakon kraja podataka.
 
-Ovaj dio može biti u [Pythonu](https://www.python.org/downloads/). Rezultat ide u bazu ili CSV koji aplikacija čita.
+Ovaj dio može biti u Pythonu. Instaliraj verziju koju podržava [PyTorch](https://pytorch.org/get-started/locally/), ne nužno najnoviju, i radi u [virtualnom okruženju](https://docs.python.org/3/tutorial/venv.html). Model radi i na procesoru, bez NVIDIA kartice. Rezultat ide u bazu ili CSV koji aplikacija čita.
 
 **C2. Asistent nad podacima.** Korisnik pita, npr. „Koji kafići u Mostaru su najviše naručivali ljeti?“ ili „Šta da naručimo za sljedeći mjesec?“, a asistent odgovara iz podataka.
 
 - Asistent ne piše proizvoljan SQL. Napiši mu nekoliko alata samo za čitanje (tool calling): promet po kupcu, top proizvodi, prognoza i slično.
+- Asistent smije pozvati više alata zaredom, npr. prognozu pa cijene ([multi-step](https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling)).
 - Prikaži koje je alate pozvao.
-- API ključ je u `.env.local`, nikad u kodu ni u repozitoriju. Bez ključa možeš koristiti Ollama lokalno.
+- API ključ je u `.env.local`, nikad u kodu ni u repozitoriju. Za ključ pitaj podršku. Bez ključa koristi [Ollama](https://ai-sdk.dev/providers/community-providers/ollama) s [modelom koji podržava alate](https://ollama.com/search?c=tools).
 - Zapiši bar dva pitanja na koja asistent odgovara pogrešno i zašto.
 
 **Gotovo kad:** prognoza je bolja od osnove ili znaš objasniti zašto nije; asistent odgovara iz podataka i vidi se koje je alate koristio.
@@ -159,7 +161,7 @@ Ovo koristimo. Ako izabereš alternativu, u dnevniku napiši zašto.
 | Forme i validacija | [React Hook Form](https://react-hook-form.com/get-started) + [Zod](https://zod.dev/) | [TanStack Form](https://tanstack.com/form/latest/docs/overview), [Valibot](https://valibot.dev/guides/introduction/) |
 | Pisanje u bazu | [Server Actions](https://nextjs.org/docs/app/getting-started/mutating-data) | [Route Handlers](https://nextjs.org/docs/app/getting-started/route-handlers) |
 | Baza | [PostgreSQL](https://www.postgresql.org/docs/current/) na [Neonu](https://neon.com/docs/introduction) | [Supabase](https://supabase.com/docs), [lokalni PostgreSQL](https://www.postgresql.org/download/), [SQLite](https://www.sqlite.org/docs.html), [Oracle Free](https://www.oracle.com/database/free/) |
-| Pristup bazi | čisti SQL ili [Drizzle](https://orm.drizzle.team/docs/overview) | [Prisma](https://www.prisma.io/docs), [Kysely](https://kysely.dev/docs/intro), [TypeORM](https://typeorm.io/) |
+| Pristup bazi | čisti SQL s [node-postgres](https://node-postgres.com/) ili [Drizzle](https://orm.drizzle.team/docs/overview) | [Prisma](https://www.prisma.io/docs), [Kysely](https://kysely.dev/docs/intro), [TypeORM](https://typeorm.io/) |
 | Prognoza | [Chronos-2](https://github.com/amazon-science/chronos-forecasting) | [TimesFM](https://github.com/google-research/timesfm), [statsforecast](https://nixtlaverse.nixtla.io/statsforecast/docs/getting-started/getting_started_short.html), [Prophet](https://facebook.github.io/prophet/docs/quick_start.html) |
 | Analiza | [pandas](https://pandas.pydata.org/docs/getting_started/index.html), [Jupyter](https://jupyter.org/install) | SQL direktno nad bazom |
 | LLM | [Vercel AI SDK](https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling) | [Anthropic API](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview), [OpenAI API](https://developers.openai.com/api/docs/guides/function-calling), [Ollama](https://docs.ollama.com/capabilities/tool-calling) (lokalno) |
