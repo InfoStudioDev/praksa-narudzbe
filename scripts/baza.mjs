@@ -1,10 +1,7 @@
-// Napuni bazu: izvrši data/schema.sql i data/seed.sql nad bazom iz DATABASE_URL (.env.local).
-// npm run baza                 napravi tabele i učitaj početne podatke
-// npm run baza -- --ispocetka  obriši tabele iz šeme i učitaj sve ponovo
+// Napuni bazu iz DATABASE_URL (.env.local): izvrši data/schema.sql i data/seed.sql.
+// Šema prvo briše postojeće tabele, pa svako pokretanje vraća početno stanje.
 import { readFileSync } from "node:fs";
 import pg from "pg";
-
-const ispocetka = process.argv.includes("--ispocetka");
 
 if (!process.env.DATABASE_URL) {
   console.error("Nema DATABASE_URL. Kopiraj .env.example u .env.local i upiši svoj connection string.");
@@ -14,21 +11,9 @@ if (!process.env.DATABASE_URL) {
 const client = new pg.Client({ connectionString: process.env.DATABASE_URL, connectionTimeoutMillis: 10000 });
 try {
   await client.connect();
-  const { rows } = await client.query("select to_regclass('public.narudzbe') is not null as postoji");
-  const postoji = rows[0].postoji;
-  const ima = postoji && (await client.query("select exists(select 1 from narudzbe) as ima")).rows[0].ima;
-  if (postoji && !ispocetka) {
-    console.log(ima
-      ? "Tabele već postoje. Za početne podatke ispočetka: npm run baza -- --ispocetka"
-      : "Tabele postoje, ali su prazne. Pokreni: npm run baza -- --ispocetka");
-  } else {
-    if (ispocetka) {
-      await client.query("drop table if exists stavke_narudzbe, narudzbe, proizvodi, kategorije, kupci cascade");
-    }
-    await client.query(readFileSync("data/schema.sql", "utf8"));
-    await client.query(readFileSync("data/seed.sql", "utf8"));
-    console.log("Baza je spremna.");
-  }
+  await client.query(readFileSync("data/schema.sql", "utf8"));
+  await client.query(readFileSync("data/seed.sql", "utf8"));
+  console.log("Baza je spremna.");
 } catch (e) {
   const poruka = e instanceof AggregateError ? e.errors.map((x) => x.message).join("; ") : e.message || e.name;
   console.error(`Greška: ${poruka}`);
