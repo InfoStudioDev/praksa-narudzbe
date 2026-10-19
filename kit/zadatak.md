@@ -86,7 +86,7 @@ Provjera: napiši upit koji vraća deset kupaca s najvećim prometom u zadnjoj g
 
 ## 1. Klijent
 
-Bistra d.o.o. je distributer pića, kafe i grickalica. Snabdijeva šezdesetak kupaca: kafiće, restorane, prodavnice, hotele i firme.
+Bistra d.o.o. je izmišljena firma: distributer pića, kafe i grickalica. Snabdijeva šezdesetak kupaca: kafiće, restorane, prodavnice, hotele i firme.
 
 Danas narudžbe stižu telefonom, porukom i mailom. Komercijalista ih prepisuje u Excel, a skladište dobije odštampanu listu. Posljedice:
 
