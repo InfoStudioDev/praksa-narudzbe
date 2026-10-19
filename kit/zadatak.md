@@ -36,7 +36,7 @@ Podrška: ______________________________
    git config --global user.email "adresa@primjer.ba"
    ```
 
-2. Napravi [GitHub nalog](https://github.com/signup). Na stranici ovog repozitorija klikni **Use this template** → **Create a new repository** ([uputstvo](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)). Repozitorij može biti javni ili privatni, s mentorom dodanim kao saradnikom ([uputstvo](https://docs.github.com/en/account-and-profile/how-tos/setting-up-and-managing-your-personal-account-on-github/managing-access-to-your-personal-repositories/inviting-collaborators-to-a-personal-repository)). Za push, i za kloniranje privatnog repozitorija, GitHub traži prijavu: VS Code te sam pita da se prijaviš ([uputstvo](https://code.visualstudio.com/docs/sourcecontrol/github)), a izvan njega instaliraj [GitHub CLI](https://cli.github.com/) i pokreni `gh auth login` ([uputstvo](https://cli.github.com/manual/gh_auth_login)). Preuzmi repozitorij na računar i instaliraj pakete:
+2. Napravi [GitHub nalog](https://github.com/signup). Na stranici ovog repozitorija klikni **Use this template** → **Create a new repository** ([uputstvo](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)). Repozitorij može biti javni ili privatni, s mentorom dodanim kao saradnikom ([uputstvo](https://docs.github.com/en/account-and-profile/how-tos/setting-up-and-managing-your-personal-account-on-github/managing-access-to-your-personal-repositories/inviting-collaborators-to-a-personal-repository)). Za push, i za kloniranje privatnog repozitorija, GitHub traži prijavu: u VS Code-u **Sign in with GitHub** ([uputstvo](https://code.visualstudio.com/docs/sourcecontrol/github)). Preuzmi repozitorij na računar i instaliraj pakete, u terminalu VS Code-a:
 
    ```bash
    git clone https://github.com/<tvoj-nalog>/<ime-repozitorija>.git
@@ -48,12 +48,11 @@ Podrška: ______________________________
 
    | Opcija | Connection string | SQL pokrećeš u |
    | --- | --- | --- |
-   | [Neon](https://neon.com/docs/connect/connect-from-any-app), besplatno u oblaku (preporuka) | Nalog, projekat u Evropi. **Connect**, isključi **Connection pooling**, kopiraj string. Na kraju stavi `?sslmode=verify-full` umjesto onoga što Neon daje. | SQL Editoru u konzoli |
-   | [Supabase](https://supabase.com/docs/guides/database/connecting-to-postgres), besplatno u oblaku | Nalog, projekat u Evropi. **Connect** → **Session pooler**, kopiraj string i upiši lozinku baze. Na kraju dodaj `?sslmode=no-verify`. | SQL Editoru u konzoli |
+   | [Neon](https://neon.com/docs/connect/connect-from-any-app), besplatno u oblaku (preporuka) | Nalog, projekat u Evropi. **Connect**, isključi **Connection pooling**, kopiraj string tačno kako ga Neon daje. | SQL Editoru u konzoli |
    | [Lokalni PostgreSQL](https://www.postgresql.org/download/), instalacija na računar | `postgresql://postgres:LOZINKA@127.0.0.1:5432/postgres`, s korisnikom i lozinkom iz instalacije | pgAdminu ili psql-u |
    | [PGlite](https://pglite.dev/docs/pglite-socket), PostgreSQL u memoriji, bez naloga | U drugom terminalu pokreni `npx -y -p @electric-sql/pglite-socket@0.2.13 pglite-server -m 10` i ostavi ga upaljen. String: `postgresql://postgres:postgres@127.0.0.1:5432/postgres`. Kad ga ugasiš, podaci nestanu, pa opet `npm run baza`. | psql-u ili drugom PostgreSQL klijentu, koji instaliraš posebno |
 
-4. Kopiraj `.env.example` u `.env.local` (`cp .env.example .env.local`, na Windowsu `copy`). U `.env.local` upiši svoj string kao `DATABASE_URL`.
+4. Kopiraj `.env.example` u `.env.local` (`cp .env.example .env.local`). U `.env.local` upiši svoj string kao `DATABASE_URL`.
 5. Napuni bazu i pokreni aplikaciju:
 
    ```bash
@@ -73,8 +72,7 @@ Podrška: ______________________________
 
 - `npm install` ispiše upozorenja (`npm warn`, `vulnerabilities`). To je normalno. Problem je samo `npm error`.
 - `npm run dev` i PGlite rade dok ih ne zaustaviš: **Ctrl+C** u terminalu.
-- Finder na macOS-u ne prikazuje `.env.local`. Skrivene fajlove pokaže **Cmd+Shift+.**; u editoru se fajl vidi normalno.
-- Lozinka sa `@`, `#`, `/` ili `?` kvari connection string. Postavi lozinku od slova i brojeva.
+- Uz Neonov string `npm run baza` i `npm run dev` ispišu `SECURITY WARNING` o SSL modu. To je samo upozorenje drajvera; sve radi.
 
 ## Korak 0: osnove
 
