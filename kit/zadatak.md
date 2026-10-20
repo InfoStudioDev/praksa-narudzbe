@@ -2,7 +2,7 @@
 
 ## O zadatku
 
-Praviš malu aplikaciju za narudžbe: lista narudžbi, detalji, unos nove narudžbe i izmjena postojeće. Podaci su izmišljeni: distributer pića i grickalica i njegovi kupci (kafići, restorani, prodavnice, hoteli i firme).
+Praviš aplikaciju za narudžbe: lista narudžbi, detalji, unos nove narudžbe i izmjena postojeće. Podaci su izmišljeni: distributer pića i grickalica i njegovi kupci (kafići, restorani, prodavnice, hoteli i firme).
 
 Cilj je da se upoznaš s tehnologijama, relacionim bazama i osnovnim funkcionalnostima: lista, detalji, unos, izmjena, brisanje i provjera podataka. Od toga se sastoji velik dio poslovnih sistema. Drugi cilj je da naučiš koristiti MUI kako treba, da aplikacija izgleda profesionalno.
 
@@ -14,17 +14,9 @@ Zadatak ima tri faze:
 
 Prva faza je ključna, a druge dvije su opcionalne. Zadatak je ciljano široko definisan i ne moraš uraditi sve. Ako kroz njega savladaš i samo osnove relacionih baza, i to je super.
 
-## Kako radimo
-
-Imamo tri online sastanka, otprilike svakih 15 dana, i završnu prezentaciju uživo u firmi. Na sastancima prolazimo kontrolnu listu s kraja ovog dokumenta.
-
-Radi redom po kontrolnoj listi. Kad nešto proradi, označi to u `kit/zadatak.md` u svom repozitoriju (`- [ ]` postaje `- [x]`), commitaj i pushaj.
-
-Ako imaš pitanje o zadatku ili zapneš, slobodno se javi mentoru ili podršci na mail, pa ćemo organizovati poseban call. Pomaže ako prije toga pushaš kod i napišeš šta radiš, koja se greška javlja i šta je već probano.
+Ako imaš pitanje o zadatku ili zapneš, slobodno se javi mentoru na mail, pa ćemo organizovati poseban call. Pomaže ako prije toga pushaš kod i napišeš šta radiš, koja se greška javlja i šta je već probano.
 
 Slobodno koristi AI da ti objasni stvari i tehnologije i pomogne u učenju. Bitno je samo da razumiješ sve što on uradi i shvataš pozadinu.
-
-Podrška: ______________________________
 
 ## Tehnologije
 
@@ -32,7 +24,9 @@ Podrška: ______________________________
 - Backend: Node.js, TypeScript i Hono.
 - Baza: PostgreSQL, backend joj pristupa preko paketa `pg`.
 
-Frontend šalje zahtjeve na `/api/...`, a backend čita i piše u bazu i vraća JSON. Za tabelu koristi MUI X Data Grid (besplatni paket `@mui/x-data-grid`), za grafike MUI X Charts, a za forme React Hook Form i Zod.
+Frontend šalje zahtjeve na `/api/...`, a backend čita i piše u bazu i vraća JSON. Za tabelu koristi MUI X Data Grid (besplatni paket `@mui/x-data-grid`), za grafike MUI X Charts, a za forme React Hook Form i Zod. Osnovni paketi za prvu fazu su već instalirani.
+
+Veza s bazom je u `server/db.ts`: `pool` za upite i `transakcija()` za više upita koji moraju proći svi ili nijedan. Primjer rute je `GET /api/kupci/:id` u `server/index.ts`: provjerava ulaz Zodom i vraća poruku za svako neispravno polje. Vrijednosti od korisnika u SQL šalji samo kao parametre (`$1`), a narudžbu sa stavkama čuvaj u jednoj transakciji.
 
 Ako s nečim radiš prvi put, počni ovdje:
 
@@ -40,15 +34,16 @@ Ako s nečim radiš prvi put, počni ovdje:
 - SQL: [SQLBolt](https://sqlbolt.com/), kratke interaktivne lekcije u pregledniku, i [zvanični PostgreSQL tutorijal](https://www.postgresql.org/docs/current/tutorial.html)
 - Git i GitHub: [Hello World](https://docs.github.com/en/get-started/start-your-journey/hello-world)
 - MUI: [Getting started](https://mui.com/material-ui/getting-started/) i [Data Grid](https://mui.com/x/react-data-grid/quickstart/)
+- Forme: [React Hook Form](https://react-hook-form.com/get-started), za stavke [useFieldArray](https://react-hook-form.com/docs/usefieldarray), a za MUI polja [Controller](https://react-hook-form.com/docs/usecontroller/controller)
 
-Za ostalo (JavaScript, TypeScript, Hono) potraži dokumentaciju ili pitaj AI kad ti zatreba.
+Za ostalo (JavaScript, TypeScript, Hono, Zod) potraži dokumentaciju ili pitaj AI kad ti zatreba.
 
 ### Izgled aplikacije
 
 Aplikacija treba izgledati profesionalno. Za to ti ne treba puno svog CSS-a, nego ono što MUI već ima:
 
 - jedna tema za cijelu aplikaciju (`ThemeProvider` i `CssBaseline`);
-- osnovni raspored s trakom na vrhu ili menijem sa strane, a dobar početak su [MUI templates](https://mui.com/material-ui/getting-started/templates/);
+- osnovni raspored s trakom na vrhu ili menijem sa strane, npr. iz [MUI templates](https://mui.com/material-ui/getting-started/templates/): pakete koje template uvozi instaliraj, a plaćene (Pro, Premium) izbaci;
 - Data Grid za listu narudžbi, sa sortiranjem i filterom, i status kao `Chip`;
 - `Dialog` ili `Drawer` za unos i izmjenu, i `Autocomplete` za izbor kupca i proizvoda;
 - poruka o grešci ispod polja i `Snackbar` kad se narudžba sačuva.
@@ -96,7 +91,7 @@ Ako nešto ne radi:
 - `Backend ne odgovara` ili `ECONNREFUSED 127.0.0.1:3000`: backend se nije pokrenuo. Pogledaj redove `[api]` u terminalu.
 - Uz Neon se ispiše `SECURITY WARNING` o SSL-u. To je samo upozorenje i sve radi.
 
-Ako ti se u postavljanju javi greška ili zapneš, slobodno se javi podršci ili mentoru na mail, s tačnom porukom greške, pa ćemo to riješiti zajedno.
+Ako ti se u postavljanju javi greška ili zapneš, slobodno se javi mentoru na mail, s tačnom porukom greške, pa ćemo to riješiti zajedno.
 
 ## Podaci
 
@@ -119,7 +114,7 @@ kupci ─< narudzbe ─< stavke_narudzbe >─ proizvodi >─ kategorije
 - Otkazane narudžbe ne ulaze u promet.
 - Zadnji datum u podacima uzmi kao današnji.
 
-Nova narudžba ima kupca i bar jednu stavku. Broj joj dodjeljuje server: `N-`, godina iz datuma narudžbe i sljedeći redni broj u toj godini, s pet cifara (npr. `N-2025-00001`). U stavci je aktivan proizvod, svaki proizvod samo jednom; količina je cijeli broj veći od nule, cijena nula ili više, a rabat od 0 do 100. Ova pravila provjerava server, ne samo forma.
+Nova narudžba ima kupca i bar jednu stavku. Broj joj dodjeljuje server: `N-`, godina iz datuma narudžbe i sljedeći redni broj u toj godini, s pet cifara (npr. `N-2025-00001`). Broj se ne mijenja ni kad se narudžba kasnije izmijeni. U stavci je aktivan proizvod, svaki proizvod samo jednom; količina je cijeli broj veći od nule, cijena nula ili više, a rabat od 0 do 100. Ova pravila provjerava server, ne samo forma.
 
 Status narudžbe ide ovim redom:
 
@@ -136,31 +131,33 @@ Promjenu šeme, npr. novu kolonu ili tabelu, napiši kao SQL fajl u folderu `mig
 
 ## Kontrolna lista
 
+Radi redom po kontrolnoj listi. Kad nešto proradi, označi to u `kit/zadatak.md` u svom repozitoriju (`- [ ]` postaje `- [x]`), commitaj i pushaj.
+
 ### Početak
 
 - [ ] `npm run baza` ispiše „Baza je spremna.“, a <http://localhost:5173> pokaže broj redova u tabelama.
-- [ ] SQLBolt, lekcije 1–12.
+- [ ] SQLBolt, lekcije 1–17.
 - [ ] `sql/prvi-upit.sql` vraća deset kupaca s najvećim prometom u zadnjoj godini podataka: naziv, broj narudžbi i promet, bez otkazanih narudžbi.
 - [ ] React Quick Start i Tutorial (Tic-Tac-Toe), u posebnom folderu, ne u ovom repozitoriju.
 - [ ] `GET /api/kupci` vraća prvih deset kupaca iz baze kao JSON.
 
 ### Faza 1: narudžbe
 
-- [ ] MUI je instaliran. Aplikacija ima temu, traku na vrhu ili meni sa strane i naslov Narudžbe.
+- [ ] Aplikacija ima MUI temu, traku na vrhu ili meni sa strane i naslov Narudžbe.
 - [ ] `GET /api/narudzbe` vraća narudžbe: broj, kupac, datum, status i iznos.
 - [ ] Stranica Narudžbe ih prikazuje u Data Gridu. Sortiranje radi i može se filtrirati po statusu.
 - [ ] Klik na narudžbu otvara detalje: stavke (proizvod, količina, cijena, rabat, iznos) i ukupan iznos.
 - [ ] `GET /api/kupci` sada vraća sve kupce, a `GET /api/proizvodi` aktivne proizvode s cijenom.
 - [ ] Forma za novu narudžbu ima kupca, datum i stavke. Stavka se dodaje i uklanja, a cijena se popuni iz cjenovnika i može se promijeniti.
 - [ ] Sačuvana narudžba ima broj koji je dao server i status `KREIRANA`, i vidi se u listi i nakon osvježavanja stranice.
-- [ ] Server odbija neispravnu narudžbu i kad je poslana bez forme (F12, `fetch` u konzoli): bez kupca, bez stavki, količina `0` ili `1.5`, cijena `-1`, rabat `120`, isti proizvod dvaput, neaktivan proizvod. Vraća status 400 i poruku koje polje nije ispravno.
-- [ ] Forma prikaže poruku servera uz polje na koje se odnosi.
-- [ ] U narudžbi sa statusom `KREIRANA` promijeniš količinu stavke. Novi iznos ostaje i nakon osvježavanja.
-- [ ] U narudžbi sa statusom `KREIRANA` dodaš i obrišeš stavku. Zadnju stavku server ne da obrisati (status 400).
+- [ ] Server odbija neispravnu narudžbu i kad je poslana bez forme (F12, `fetch` u konzoli): bez kupca, bez stavki, količina `0` ili `1.5`, cijena `-1`, rabat `120`, isti proizvod dvaput. Vraća status 400 i poruku za polje koje nije ispravno.
+- [ ] Server odbija i proizvod koji je neaktivan ili ne postoji. Server to provjerava upitom u bazu.
+- [ ] Kad server odbije narudžbu, forma prikaže njegovu poruku uz polje na koje se odnosi. Provjeri to tako što u SQL editoru proizvodu koji je već u formi postaviš `aktivan = false`, pa sačuvaš.
 - [ ] Narudžbu sa statusom `KREIRANA` obrišeš.
-- [ ] Kod narudžbe koja nije `KREIRANA` server odbija izmjenu kupca, datuma i stavki, i brisanje (status 400).
 - [ ] U detaljima se status bira s padajuće liste koja nudi samo dozvoljene prelaze.
 - [ ] Nedozvoljen prelaz (npr. `ISPORUCENA` → `KREIRANA`), poslan preko `fetch` u konzoli, server odbija (status 400).
+- [ ] Narudžbu sa statusom `KREIRANA` otvoriš u istoj formi kao novu, promijeniš kupca, datum i stavke i sačuvaš. Server izmjenu provjerava po istim pravilima kao novu narudžbu. Izmjena ostaje i nakon osvježavanja.
+- [ ] Kod narudžbe koja nije `KREIRANA` server odbija izmjenu kupca, datuma i stavki, i brisanje (status 400).
 - [ ] `migracije/001-nacin-placanja.sql` dodaje u `narudzbe` kolonu `nacin_placanja` (`GOTOVINA`, `KARTICA` ili `VIRMAN`). Postojeće narudžbe dobiju `VIRMAN`, a `npm run baza` prolazi bez greške.
 - [ ] Način plaćanja se bira u formi i vidi u listi.
 
@@ -192,7 +189,7 @@ Za asistenta treba besplatan Gemini API ključ iz [Google AI Studija](https://ai
 - [ ] Python skripta čita iz baze sedmične količine po kategoriji. Sedmice bez prodaje imaju 0, inače ih model ne prihvata.
 - [ ] Zadnjih 12 sedmica sakriješ i prognoziraš ih jednostavno: ista sedmica prošle godine. Izmjeriš grešku (MAE).
 - [ ] Istih 12 sedmica prognoziraš s Chronos-2, izmjeriš grešku i uporediš je s jednostavnom prognozom.
-- [ ] Prognoza za narednih osam sedmica, sa srednjom vrijednošću i rasponom (p10 do p90), upisana je u tabelu `prognoze`.
+- [ ] Prognoza za narednih osam sedmica, sa srednjom vrijednošću i rasponom (p10 do p90), upisana je u tabelu `prognoze`. `npm run baza` briše i nju, pa skriptu nakon toga pokreneš ponovo.
 - [ ] Grafik u aplikaciji prikazuje stvarne količine i prognozu s rasponom, kao u primjeru [Line with forecast](https://mui.com/x/react-charts/line-demo/#line-with-forecast).
 - [ ] Asistent odgovara na pitanja iz podataka, npr. „Koji kafići u Mostaru su najviše naručivali ljeti?“ Koristi [Vercel AI SDK](https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling) s [Gemini modelom](https://ai-sdk.dev/providers/ai-sdk-providers/google-generative-ai). Asistent ne piše SQL sam, nego koristi tri do pet alata koji samo čitaju podatke, npr. promet po kupcu ili prognozu. Vidi se koje je alate pozvao.
 
