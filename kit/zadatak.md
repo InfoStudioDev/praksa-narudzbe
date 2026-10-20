@@ -1,115 +1,68 @@
 # Praksa: aplikacija za narudžbe
 
-Praviš aplikaciju za narudžbe za klijenta Bistra d.o.o. Pripremljeno je samo okruženje, ostalo gradiš sam. Gledamo kod i kako objašnjavaš odluke.
+## O zadatku
 
-Kako radiš:
+Praviš malu aplikaciju za narudžbe: lista narudžbi, detalji, unos nove narudžbe i izmjena postojeće. Podaci su izmišljeni: distributer pića i grickalica i njegovi kupci (kafići, restorani, prodavnice, hoteli i firme).
 
-1. Postavi okruženje (poglavlje 4).
-2. Prođi kontrolnu listu (poglavlje 7) redom, red po red. Svaki red je jedan mali zadatak s rezultatom koji se vidi. Prvi zadaci su vježbe iz kolone *Ako ništa drugo, uradi ovo* u poglavlju 3.
-3. Kad red radi, u `kit/zadatak.md` svog repozitorija zamijeni njegov ☐ u koloni *Ti* sa ☑, commitaj i pushaj, pa pređi na sljedeći red.
-4. Kad završiš grupu redova (npr. *Korak 1: unos*), pošalji mentoru link na zadnji commit i sliku ekrana. Dok čekaš odgovor, radi dalje.
+Cilj je da se upoznaš s tehnologijama, relacionim bazama i osnovnim funkcionalnostima: lista, detalji, unos, izmjena, brisanje i provjera podataka. Od toga se sastoji velik dio poslovnih sistema. Drugi cilj je da naučiš koristiti MUI kako treba, da aplikacija izgleda profesionalno.
 
-**Korak 1 je cijeli zadatak.** Koraci 2 i 3 su bonus.
+Zadatak ima tri faze:
 
-## 1. Pozadina: zašto i za koga
+1. Osnovna aplikacija za prikaz i rad s narudžbama.
+2. Analitika: grafici i pregledi nad podacima.
+3. Pametni algoritmi i modeli mašinskog učenja: prognoza prodaje i asistent koji odgovara iz podataka.
 
-Bistra d.o.o. je izmišljena firma: distributer pića, kafe i grickalica sa šezdesetak kupaca (kafići, restorani, prodavnice, hoteli i firme).
+Prva faza je ključna, a druge dvije su opcionalne. Zadatak je ciljano široko definisan i ne moraš uraditi sve. Ako kroz njega savladaš i samo osnove relacionih baza, i to je super.
 
-Danas narudžbe stižu telefonom, porukom i mailom. Komercijalista ih prepisuje u Excel, a skladište dobije odštampanu listu. Zato:
+## Kako radimo
 
-- ima grešaka u količinama i cijenama, i niko ne zna koja je verzija tačna;
-- kad kupac pita gdje mu je roba, odgovor traže tri osobe;
-- vlasnik ne vidi koji kupci i proizvodi donose novac, ni šta je u padu;
-- nabavka nagađa: ljeti nestane vode, zimi višak stoji u skladištu.
+Imamo tri online sastanka, otprilike svakih 15 dana, i završnu prezentaciju uživo u firmi. Na sastancima prolazimo kontrolnu listu s kraja ovog dokumenta.
 
-Bistra traži jedno mjesto za narudžbe, pregled poslovanja i prognozu potražnje za nabavku.
+Radi redom po kontrolnoj listi. Kad nešto proradi, označi to u `kit/zadatak.md` u svom repozitoriju (`- [ ]` postaje `- [x]`), commitaj i pushaj.
 
-| Ko koristi | Šta radi |
-| --- | --- |
-| Komercijalista | unosi i ispravlja narudžbe |
-| Skladište | priprema robu i mijenja status |
-| Vlasnik | prati poslovanje |
-| Nabavka | gleda prognozu i planira narudžbe kod dobavljača |
+Ako imaš pitanje o zadatku ili zapneš, slobodno se javi mentoru ili podršci na mail, pa ćemo organizovati poseban call. Pomaže ako prije toga pushaš kod i napišeš šta radiš, koja se greška javlja i šta je već probano.
 
-## 2. Šta se očekuje: tri koraka
+Slobodno koristi AI da ti objasni stvari i tehnologije i pomogne u učenju. Bitno je samo da razumiješ sve što on uradi i shvataš pozadinu.
 
-| Korak | Šta praviš | Za koga |
-| --- | --- | --- |
-| 1. Narudžbe (CRUD) | lista, detalji, unos, izmjena, brisanje i status narudžbi | komercijalista, skladište |
-| 2. Analitika | grafici i nalazi o poslovanju | vlasnik |
-| 3. Inteligencija | prognoza potražnje i asistent koji odgovara iz podataka | nabavka, vlasnik |
+Podrška: ______________________________
 
-Tačni zadaci su u kontrolnoj listi (poglavlje 7). Ovdje su pravila i pozadina.
+## Tehnologije
 
-### Korak 1: narudžbe (CRUD)
+- Frontend: React i MUI, pokreće ga Vite.
+- Backend: Node.js, TypeScript i Hono.
+- Baza: PostgreSQL, backend joj pristupa preko paketa `pg`.
 
-Pravila unosa provjerava server, ne samo forma. Neispravan unos ne smije završiti u bazi ni kad zahtjev pošalješ direktno na `/api`, bez forme.
+Frontend šalje zahtjeve na `/api/...`, a backend čita i piše u bazu i vraća JSON. Za tabelu koristi MUI X Data Grid (besplatni paket `@mui/x-data-grid`), za grafike MUI X Charts, a za forme React Hook Form i Zod.
 
-- Kupac je obavezan i narudžba ima bar jednu stavku.
-- Broj narudžbe dodjeljuje server: `N-`, godina iz datuma narudžbe i sljedeći redni broj u toj godini, s pet cifara (kao u podacima, npr. `N-2025-00001`). Broj je jedinstven.
-- Proizvod je obavezan i aktivan. Isti proizvod je samo jednom u narudžbi.
-- Količina je cijeli broj veći od nule, cijena nula ili veća, rabat od 0 do 100.
-- Izmjena i brisanje su dozvoljeni samo dok narudžba ima status `KREIRANA`. Status se mijenja po tabeli iz poglavlja 5.
+Ako s nečim radiš prvi put, počni ovdje:
 
-### Korak 2: analitika (bonus)
+- React: [Quick Start](https://react.dev/learn) i [Tutorial (Tic-Tac-Toe)](https://react.dev/learn/tutorial-tic-tac-toe)
+- SQL: [SQLBolt](https://sqlbolt.com/), kratke interaktivne lekcije u pregledniku, i [zvanični PostgreSQL tutorijal](https://www.postgresql.org/docs/current/tutorial.html)
+- Git i GitHub: [Hello World](https://docs.github.com/en/get-started/start-your-journey/hello-world)
+- MUI: [Getting started](https://mui.com/material-ui/getting-started/) i [Data Grid](https://mui.com/x/react-data-grid/quickstart/)
 
-Vlasnik hoće pregled poslovanja: stranicu s graficima nad bazom i kratak pisani izvještaj. Upite piši u SQL-u i drži ih u repozitoriju. Pitanja:
+Za ostalo (JavaScript, TypeScript, Hono) potraži dokumentaciju ili pitaj AI kad ti zatreba.
 
-- Kako se kreće promet po mjesecima? Ima li sezone i rasta?
-- Koji kupci i proizvodi donose najviše? Ko je prestao naručivati?
-- Kako se vrste kupaca i kategorije razlikuju kroz godinu?
-- Šta se desilo s cijenama i kako je to uticalo na promet?
-- Koje narudžbe stoje u `U_OBRADI` ili `POSLATA` više od 7 dana od datuma narudžbe? Isporuka traje do 3 radna dana.
+### Izgled aplikacije
 
-### Korak 3: inteligencija (bonus)
+Aplikacija treba izgledati profesionalno. Za to ti ne treba puno svog CSS-a, nego ono što MUI već ima:
 
-**Prognoza.** Nabavka pita koliko čega naručiti za osam sedmica nakon zadnjeg datuma u podacima. Model: [Chronos-2](https://github.com/amazon-science/chronos-forecasting) (alternative: [TimesFM](https://github.com/google-research/timesfm), [statsforecast](https://nixtlaverse.nixtla.io/statsforecast/docs/getting-started/getting_started_short.html)). Ovaj dio može biti u Pythonu, s [pandas](https://pandas.pydata.org/docs/getting_started/index.html) i [Jupyterom](https://jupyter.org/install). Rezultat ide u bazu ili CSV koji aplikacija čita.
+- jedna tema za cijelu aplikaciju (`ThemeProvider` i `CssBaseline`);
+- osnovni raspored s trakom na vrhu ili menijem sa strane, a dobar početak su [MUI templates](https://mui.com/material-ui/getting-started/templates/);
+- Data Grid za listu narudžbi, sa sortiranjem i filterom, i status kao `Chip`;
+- `Dialog` ili `Drawer` za unos i izmjenu, i `Autocomplete` za izbor kupca i proizvoda;
+- poruka o grešci ispod polja i `Snackbar` kad se narudžba sačuva.
 
-**Asistent.** Korisnik pita, npr. „Koji kafići u Mostaru su najviše naručivali ljeti?“, a asistent odgovara iz podataka. Koristi [Vercel AI SDK](https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling) i model lokalno preko [Ollame](https://ai-sdk.dev/providers/community-providers/ollama), s [modelom koji podržava alate](https://ollama.com/search?c=tools). Alternative s API ključem: [Anthropic API](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview), [OpenAI API](https://developers.openai.com/api/docs/guides/function-calling). Ključ ide u `.env.local`, nikad u kod. Asistent ne piše proizvoljan SQL: dobija tri do pet alata samo za čitanje (tool calling) i smije ih pozvati više zaredom.
+## Postavljanje
 
-## 3. Tehnologije
-
-### Glavni dijelovi
-
-Aplikacija ima tri dijela: frontend u browseru (React i MUI), backend na serveru (Node.js, TypeScript i Hono) i bazu (PostgreSQL). Frontend šalje zahtjeve na `/api/...`, a backend čita i piše u bazu i vraća JSON.
-
-| Dio | Uloga u aplikaciji | Počni ovdje | Ako ništa drugo, uradi ovo |
-| --- | --- | --- | --- |
-| React | ekrani i forme | [Quick Start](https://react.dev/learn), [Thinking in React](https://react.dev/learn/thinking-in-react), [State](https://react.dev/learn/state-a-components-memory) | [Quick Start](https://react.dev/learn) i [Tutorial: Tic-Tac-Toe](https://react.dev/learn/tutorial-tic-tac-toe) |
-| MUI | gotove komponente: dugmad, forme, tabela, grafici | [Installation](https://mui.com/material-ui/getting-started/installation/), [Usage](https://mui.com/material-ui/getting-started/usage/), [Templates](https://mui.com/material-ui/getting-started/templates/), [Data Grid](https://mui.com/x/react-data-grid/quickstart/), [Charts](https://mui.com/x/react-charts/quickstart/) | instaliraj MUI i Data Grid i prikaži tri ručno upisane narudžbe u tabeli |
-| Node.js, TypeScript i Hono | backend: rute `/api/...`, validacija, SQL | [TS for JS Programmers](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html), [Hono na Node.js-u](https://hono.dev/docs/getting-started/nodejs), [Hono validacija](https://hono.dev/docs/guides/validation) | dodaj u `server/index.ts` rutu `GET /api/kupci` koja vraća prvih deset kupaca iz baze kao JSON |
-| PostgreSQL i SQL | podaci; upite pišeš sam | [Tutorial 2.4–2.7](https://www.postgresql.org/docs/current/tutorial-sql.html), [Joins](https://www.postgresql.org/docs/current/tutorial-join.html), [Foreign Keys](https://www.postgresql.org/docs/current/tutorial-fk.html) | [SQLBolt](https://sqlbolt.com/), lekcije 1–12 (interaktivno, u browseru), pa [PostgreSQL Exercises](https://pgexercises.com/) |
-
-React pretpostavlja JavaScript. Ako ti treba, MDN: [Functions](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Functions), [Arrays](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Arrays), [Objects](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Object_basics), [Promises i async/await](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Async_JS/Promises), [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch). Za Git: Pro Git [Recording Changes](https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository) i GitHub [Hello World](https://docs.github.com/en/get-started/start-your-journey/hello-world).
-
-### Šta koristimo i alternative
-
-Ako izabereš alternativu, na prezentaciji objasni zašto.
-
-| Područje | Koristimo | Alternative |
-| --- | --- | --- |
-| UI komponente | [MUI](https://mui.com/material-ui/getting-started/installation/) (Material UI) | [Mantine](https://mantine.dev/getting-started/), [shadcn/ui](https://ui.shadcn.com/docs) |
-| Tabela | [MUI X Data Grid](https://mui.com/x/react-data-grid/quickstart/), besplatni paket `@mui/x-data-grid` | [AG Grid](https://www.ag-grid.com/react-data-grid/getting-started/), [TanStack Table](https://tanstack.com/table/latest/docs/overview) |
-| Grafici | [MUI X Charts](https://mui.com/x/react-charts/quickstart/) | [Recharts](https://recharts.github.io/en-US/guide/getting-started/), [Apache ECharts](https://echarts.apache.org/handbook/en/get-started/) |
-| Forme i validacija | [React Hook Form](https://react-hook-form.com/get-started) + [Zod](https://zod.dev/), isti Zod i na serveru | [TanStack Form](https://tanstack.com/form/latest/docs/overview), [Valibot](https://valibot.dev/guides/introduction/) |
-| Frontend | [React](https://react.dev/) + [Vite](https://vite.dev/guide/) | — |
-| Backend | [Hono](https://hono.dev/docs/) na Node.js-u, TypeScript | [Express](https://expressjs.com/en/starter/installing.html), [Fastify](https://fastify.dev/docs/latest/Guides/Getting-Started/) |
-| Baza | [PostgreSQL](https://www.postgresql.org/docs/current/): Neon, lokalni ili PGlite (poglavlje 4) | — |
-| Pristup bazi | SQL s [node-postgres](https://node-postgres.com/) ili [Drizzle](https://orm.drizzle.team/docs/overview) | [Kysely](https://kysely.dev/docs/intro), [Prisma](https://www.prisma.io/docs) |
-| Testovi | [Vitest](https://vitest.dev/guide/), [Playwright](https://playwright.dev/docs/intro) | [Jest](https://jestjs.io/docs/getting-started), [Cypress](https://docs.cypress.io/app/get-started/why-cypress) |
-
-Firma koristi i Express, TypeORM, Oracle, Keycloak, nginx i Turborepo. Za ovaj zadatak nisu potrebni.
-
-## 4. Postavljanje
-
-1. Instaliraj [Git](https://git-scm.com/downloads), [Node.js](https://nodejs.org/en/download) (LTS, v24 ili novija) i [VS Code](https://code.visualstudio.com/). Komande pokrećeš u [terminalu u VS Code-u](https://code.visualstudio.com/docs/terminal/getting-started). Git prije prvog commita traži ime i email ([uputstvo](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup)):
+1. Instaliraj [Git](https://git-scm.com/downloads), [Node.js](https://nodejs.org/en/download) (LTS, verzija 24 ili novija) i [VS Code](https://code.visualstudio.com/). Komande pokrećeš u terminalu u VS Code-u. Na Windowsu za terminal postavi Git Bash, koji dolazi s Gitom: Ctrl+Shift+P → **Terminal: Select Default Profile** → **Git Bash**, pa otvori novi terminal. Tako komande rade isto kao na macOS-u i Linuxu. Prije prvog commita Git traži ime i email:
 
    ```bash
    git config --global user.name "Ime Prezime"
    git config --global user.email "adresa@primjer.ba"
    ```
 
-2. Napravi [GitHub nalog](https://github.com/signup). Na stranici ovog repozitorija klikni **Use this template** → **Create a new repository** ([uputstvo](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)). Repozitorij može biti javni ili privatni, s mentorom dodanim kao saradnikom ([uputstvo](https://docs.github.com/en/account-and-profile/how-tos/setting-up-and-managing-your-personal-account-on-github/managing-access-to-your-personal-repositories/inviting-collaborators-to-a-personal-repository)). Za push, i za kloniranje privatnog repozitorija, GitHub traži prijavu: u VS Code-u **Sign in with GitHub** ([uputstvo](https://code.visualstudio.com/docs/sourcecontrol/github)). Preuzmi repozitorij i instaliraj pakete:
+2. Napravi GitHub nalog ako ga nemaš. Na stranici ovog repozitorija klikni **Use this template** → **Create a new repository**. Repozitorij može biti javan; ako je privatan, dodaj mentora kao saradnika (pitaj ga za GitHub korisničko ime). U VS Code-u se prijavi preko **Sign in with GitHub**, pa preuzmi repozitorij i instaliraj pakete:
 
    ```bash
    git clone https://github.com/<tvoj-nalog>/<ime-repozitorija>.git
@@ -117,186 +70,135 @@ Firma koristi i Express, TypeORM, Oracle, Keycloak, nginx i Turborepo. Za ovaj z
    npm install
    ```
 
-3. Napravi bazu. Aplikacija i `npm run baza` rade s bilo kojom opcijom iz tabele; razlikuje se samo connection string. Najjednostavniji je Neon: nema instalacije, a SQL pokrećeš u browseru.
+   Onda taj folder otvori u VS Code-u (File → Open Folder). Ne stavljaj ga u folder koji sinhronizuje OneDrive.
 
-   | Opcija | Connection string | SQL pokrećeš u |
-   | --- | --- | --- |
-   | [Neon](https://neon.com/docs/connect/connect-from-any-app), besplatno u oblaku (preporuka) | Nalog, projekat u Evropi. **Connect**, isključi **Connection pooling**, kopiraj string tačno kako ga Neon daje. | SQL Editoru u konzoli |
-   | [Lokalni PostgreSQL](https://www.postgresql.org/download/), instalacija na računar | `postgresql://postgres:LOZINKA@127.0.0.1:5432/postgres`, s korisnikom i lozinkom iz instalacije | pgAdminu ili psql-u |
-   | [PGlite](https://pglite.dev/docs/pglite-socket), PostgreSQL u memoriji, bez naloga | U drugom terminalu pokreni `npx -y -p @electric-sql/pglite-socket@0.2.13 pglite-server -m 10` i ostavi ga upaljen. String: `postgresql://postgres:postgres@127.0.0.1:5432/postgres`. Kad ga ugasiš, podaci nestanu, pa opet `npm run baza`. | psql-u ili drugom PostgreSQL klijentu, koji instaliraš posebno |
+3. Napravi besplatnu bazu na [Neonu](https://neon.com/): otvori nalog i napravi projekat u Evropi. Klikni **Connect**, isključi **Connection pooling** i kopiraj connection string tačno kako ga Neon daje. Svoje SQL upite pokrećeš u Neonovom SQL Editoru. Ako već imaš PostgreSQL na računaru, možeš koristiti njega (`postgresql://postgres:LOZINKA@127.0.0.1:5432/postgres`), a upite pokretati u pgAdminu ili psql-u.
 
-4. Kopiraj `.env.example` u `.env.local` (`cp .env.example .env.local`). U `.env.local` upiši svoj string kao `DATABASE_URL`.
+4. Kopiraj `.env.example` u `.env.local` (`cp .env.example .env.local`), pa u VS Code-u u `.env.local` upiši svoj connection string kao `DATABASE_URL`.
+
 5. Napuni bazu i pokreni aplikaciju:
 
    ```bash
-   npm run baza     # tabele i početni podaci; svako pokretanje briše sve i učitava ispočetka
-   npm run dev      # backend [api] na portu 3000 i frontend [web] na portu 5173
+   npm run baza
+   npm run dev
    ```
 
-   `npm run baza` ispiše „Baza je spremna.“ Na <http://localhost:5173> treba pisati „Aplikacija radi.“ i „Baza odgovara: kupci 60, proizvodi 40, narudzbe 2068, stavke_narudzbe 10095.“ `src/App.tsx` je samo ta provjera: zamijeni ga svojim ekranima. U `server/index.ts` svoje rute dodaj pored `/api/provjera`.
+   `npm run baza` briše sve i učitava tabele, početne podatke i tvoje migracije, pa ispiše „Baza je spremna.“ `npm run dev` pokreće backend (port 3000) i frontend. Otvori adresu koju ispiše `[web]`, obično <http://localhost:5173>. Tamo piše „Aplikacija radi.“ i „Baza odgovara: kupci 60, proizvodi 40, narudzbe 2068, stavke_narudzbe 10095.“ `src/App.tsx` je samo ta provjera i njega zamjenjuješ svojom aplikacijom. Svoje rute dodaješ u `server/index.ts`.
 
-**Česti problemi**
+Ako nešto ne radi:
 
-| Poruka | Šta uraditi |
-| --- | --- |
-| `.env.local not found` ili `nema DATABASE_URL` | Nema `.env.local` (poglavlje 4, korak 4). Poslije izmjene `.env.local` zaustavi i ponovo pokreni `npm run dev`. |
-| `relation "kupci" does not exist` | Pokreni `npm run baza`. |
-| `ECONNREFUSED 127.0.0.1:5432` | Lokalna baza ili PGlite nije pokrenut. |
-| `Backend ne odgovara` ili `ECONNREFUSED 127.0.0.1:3000` | Backend se nije pokrenuo. Pogledaj redove `[api]` u terminalu. |
+- `npm.ps1 cannot be loaded` ili `running scripts is disabled`: terminal je PowerShell. Prebaci na Git Bash (korak 1).
+- `.env.local not found` ili `nema DATABASE_URL`: nema `.env.local` (korak 4). Nakon svake izmjene `.env.local` zaustavi `npm run dev` (Ctrl+C) i pokreni ga ponovo.
+- `ENOTFOUND HOST`: u `.env.local` je ostao primjer. Upiši svoj connection string.
+- `relation "kupci" does not exist`: pokreni `npm run baza`.
+- `ECONNREFUSED 127.0.0.1:5432`: lokalna baza nije pokrenuta.
+- `EADDRINUSE` i port `3000`: aplikacija već radi u drugom terminalu. Zaustavi je tamo (Ctrl+C).
+- `Backend ne odgovara` ili `ECONNREFUSED 127.0.0.1:3000`: backend se nije pokrenuo. Pogledaj redove `[api]` u terminalu.
+- Uz Neon se ispiše `SECURITY WARNING` o SSL-u. To je samo upozorenje i sve radi.
 
-- `npm run dev` i PGlite rade dok ih ne zaustaviš: **Ctrl+C** u terminalu.
-- Uz Neonov string `npm run baza` i `npm run dev` ispišu `SECURITY WARNING` o SSL modu. To je samo upozorenje drajvera; sve radi.
+Ako ti se u postavljanju javi greška ili zapneš, slobodno se javi podršci ili mentoru na mail, s tačnom porukom greške, pa ćemo to riješiti zajedno.
 
-## 5. Podaci
+## Podaci
 
-U `data/` su šema (`schema.sql`) i podaci (`seed.sql`, isto u `csv/`). Podaci su generisani i pokrivaju dvije godine poslovanja. Zadnji datum u podacima je „danas“ za analizu i prognozu. Imena su izmišljena.
+U `data/` su šema (`schema.sql`) i početni podaci (`seed.sql`) za dvije godine poslovanja.
 
 ```text
 kupci ─< narudzbe ─< stavke_narudzbe >─ proizvodi >─ kategorije
 ```
 
-| Tabela | Šta je | Važne kolone |
-| --- | --- | --- |
-| `kupci` | kupci | `sifra`, `naziv`, `vrsta`, `grad` |
-| `kategorije` | grupe proizvoda | `naziv` |
-| `proizvodi` | cjenovnik | `sifra`, `naziv`, `kategorija_id`, `cijena`, `aktivan` |
-| `narudzbe` | zaglavlje narudžbe | `broj`, `kupac_id`, `datum`, `datum_isporuke`, `status` |
-| `stavke_narudzbe` | proizvodi u narudžbi | `narudzba_id`, `proizvod_id`, `kolicina`, `cijena_po_komadu`, `rabat_posto` |
+| Tabela | Važne kolone |
+| --- | --- |
+| `kupci` | `sifra`, `naziv`, `vrsta`, `grad` |
+| `kategorije` | `naziv` |
+| `proizvodi` | `sifra`, `naziv`, `kategorija_id`, `cijena`, `aktivan` |
+| `narudzbe` | `broj`, `kupac_id`, `datum`, `datum_isporuke`, `status` |
+| `stavke_narudzbe` | `narudzba_id`, `proizvod_id`, `kolicina`, `cijena_po_komadu`, `rabat_posto` |
 
-Pravila:
-
-- `proizvodi.cijena` je trenutna cijena. `stavke_narudzbe.cijena_po_komadu` je cijena u trenutku narudžbe. Nisu uvijek iste.
-- Iznos stavke = `kolicina × cijena_po_komadu × (1 − rabat_posto / 100)`.
+- Iznos stavke je `kolicina × cijena_po_komadu × (1 − rabat_posto / 100)`.
+- `proizvodi.cijena` je današnja cijena, a `cijena_po_komadu` cijena u trenutku narudžbe.
 - Otkazane narudžbe ne ulaze u promet.
-- Neaktivan proizvod se ne nudi u novim narudžbama, ali ostaje u starim.
+- Zadnji datum u podacima uzmi kao današnji.
 
-Tok narudžbe:
+Nova narudžba ima kupca i bar jednu stavku. Broj joj dodjeljuje server: `N-`, godina iz datuma narudžbe i sljedeći redni broj u toj godini, s pet cifara (npr. `N-2025-00001`). U stavci je aktivan proizvod, svaki proizvod samo jednom; količina je cijeli broj veći od nule, cijena nula ili više, a rabat od 0 do 100. Ova pravila provjerava server, ne samo forma.
 
-| Status | Može preći u | Izmjena i brisanje |
-| --- | --- | --- |
-| `KREIRANA` | `U_OBRADI`, `OTKAZANA` | da |
-| `U_OBRADI` | `POSLATA`, `OTKAZANA` | ne |
-| `POSLATA` | `ISPORUCENA` | ne |
-| `ISPORUCENA`, `OTKAZANA` | (kraj) | ne |
+Status narudžbe ide ovim redom:
 
-Promjenu šeme radi kao migraciju: SQL fajl u folderu `sql/` tvog repozitorija, pokrenut tamo gdje pokrećeš SQL (poglavlje 4, korak 3). `npm run baza` vraća originalnu šemu, pa migracije nakon toga pokreni ponovo.
+| Status | Može preći u |
+| --- | --- |
+| `KREIRANA` | `U_OBRADI`, `OTKAZANA` |
+| `U_OBRADI` | `POSLATA`, `OTKAZANA` |
+| `POSLATA` | `ISPORUCENA` |
+| `ISPORUCENA`, `OTKAZANA` | (kraj) |
 
-## 6. Pomoć
+Kupac, datum i stavke mogu se mijenjati, a narudžba brisati, samo dok je `KREIRANA`. Status se mijenja po tabeli.
 
-- Pitanja o tome šta zadatak znači postavi mentoru, bilo kad.
-- Za tehnički problem prvo pročitaj grešku i dokumentaciju, pa pretraži. Kad si probao bar dvije stvari i obje upisao pod *Probano*, pošalji podršci poruku u četiri reda:
+Promjenu šeme, npr. novu kolonu ili tabelu, napiši kao SQL fajl u folderu `migracije/`. `npm run baza` nakon početnih podataka pokrene i te fajlove, redom po imenu, i ispiše koje je pokrenuo.
 
-  ```text
-  Radim: …
-  Greška: … (tačan tekst ili slika ekrana)
-  Probano: …
-  Očekujem: …
-  ```
+## Kontrolna lista
 
-- Prije pitanja podršci commitaj i pushaj, da se vidi tvoj kod.
-- AI koristi slobodno. Ne predaj kod koji ne razumiješ. Ako koristiš AI, na prezentaciji objašnjavaš i dio koda koji je on napisao.
+### Početak
 
-Podrška: ______________________________
+- [ ] `npm run baza` ispiše „Baza je spremna.“, a <http://localhost:5173> pokaže broj redova u tabelama.
+- [ ] SQLBolt, lekcije 1–12.
+- [ ] `sql/prvi-upit.sql` vraća deset kupaca s najvećim prometom u zadnjoj godini podataka: naziv, broj narudžbi i promet, bez otkazanih narudžbi.
+- [ ] React Quick Start i Tutorial (Tic-Tac-Toe), u posebnom folderu, ne u ovom repozitoriju.
+- [ ] `GET /api/kupci` vraća prvih deset kupaca iz baze kao JSON.
 
-## 7. Kontrolna lista
+### Faza 1: narudžbe
 
-Radi redom. Kolonu *Ti* popunjavaš ti, kolonu *Mentor* mentor na prezentaciji. Grupe označene kao bonus možeš preskočiti i preći na *Predaja*.
+- [ ] MUI je instaliran. Aplikacija ima temu, traku na vrhu ili meni sa strane i naslov Narudžbe.
+- [ ] `GET /api/narudzbe` vraća narudžbe: broj, kupac, datum, status i iznos.
+- [ ] Stranica Narudžbe ih prikazuje u Data Gridu. Sortiranje radi i može se filtrirati po statusu.
+- [ ] Klik na narudžbu otvara detalje: stavke (proizvod, količina, cijena, rabat, iznos) i ukupan iznos.
+- [ ] `GET /api/kupci` sada vraća sve kupce, a `GET /api/proizvodi` aktivne proizvode s cijenom.
+- [ ] Forma za novu narudžbu ima kupca, datum i stavke. Stavka se dodaje i uklanja, a cijena se popuni iz cjenovnika i može se promijeniti.
+- [ ] Sačuvana narudžba ima broj koji je dao server i status `KREIRANA`, i vidi se u listi i nakon osvježavanja stranice.
+- [ ] Server odbija neispravnu narudžbu i kad je poslana bez forme (F12, `fetch` u konzoli): bez kupca, bez stavki, količina `0` ili `1.5`, cijena `-1`, rabat `120`, isti proizvod dvaput, neaktivan proizvod. Vraća status 400 i poruku koje polje nije ispravno.
+- [ ] Forma prikaže poruku servera uz polje na koje se odnosi.
+- [ ] U narudžbi sa statusom `KREIRANA` promijeniš količinu stavke. Novi iznos ostaje i nakon osvježavanja.
+- [ ] U narudžbi sa statusom `KREIRANA` dodaš i obrišeš stavku. Zadnju stavku server ne da obrisati (status 400).
+- [ ] Narudžbu sa statusom `KREIRANA` obrišeš.
+- [ ] Kod narudžbe koja nije `KREIRANA` server odbija izmjenu kupca, datuma i stavki, i brisanje (status 400).
+- [ ] U detaljima se status bira s padajuće liste koja nudi samo dozvoljene prelaze.
+- [ ] Nedozvoljen prelaz (npr. `ISPORUCENA` → `KREIRANA`), poslan preko `fetch` u konzoli, server odbija (status 400).
+- [ ] `migracije/001-nacin-placanja.sql` dodaje u `narudzbe` kolonu `nacin_placanja` (`GOTOVINA`, `KARTICA` ili `VIRMAN`). Postojeće narudžbe dobiju `VIRMAN`, a `npm run baza` prolazi bez greške.
+- [ ] Način plaćanja se bira u formi i vidi u listi.
 
-| Pokretanje | Ti | Mentor |
-| --- | :---: | :---: |
-| 1. `npm run baza` ispiše „Baza je spremna.“ | ☐ | ☐ |
-| 2. Na <http://localhost:5173/api/provjera> piše „Baza odgovara: kupci 60, proizvodi 40, narudzbe 2068, stavke_narudzbe 10095.“ | ☐ | ☐ |
+### Faza 2: analitika (opcionalno)
 
-| Prvi zadaci (3 i 5 preskoči ako SQL i React već znaš) | Ti | Mentor |
-| --- | :---: | :---: |
-| 3. [SQLBolt](https://sqlbolt.com/): lekcije 1–12 urađene | ☐ | ☐ |
-| 4. `sql/prvi-upit.sql` vraća deset kupaca s najvećim prometom u zadnjoj godini podataka (naziv, broj narudžbi, promet po pravilima iz poglavlja 5) i pushan je na GitHub | ☐ | ☐ |
-| 5. React: [Quick Start](https://react.dev/learn) i [Tutorial: Tic-Tac-Toe](https://react.dev/learn/tutorial-tic-tac-toe) urađeni, u posebnom folderu, ne u ovom repozitoriju | ☐ | ☐ |
-| 6. `GET /api/kupci` vraća prvih deset kupaca iz baze kao JSON | ☐ | ☐ |
-| 7. MUI i `@mui/x-data-grid` instalirani; tabela na početnoj stranici prikazuje tri ručno upisane narudžbe | ☐ | ☐ |
+Upite piši u SQL-u i drži ih u repozitoriju.
 
-| Korak 1: lista i detalji | Ti | Mentor |
-| --- | :---: | :---: |
-| 8. `GET /api/narudzbe` vraća sve narudžbe kao JSON: broj, kupac, datum, status, broj stavki, iznos | ☐ | ☐ |
-| 9. Tabela iz reda 7 prikazuje narudžbe iz `GET /api/narudzbe` umjesto ručno upisanih | ☐ | ☐ |
-| 10. Klik na naslov kolone sortira tabelu | ☐ | ☐ |
-| 11. Filter po statusu prikazuje samo narudžbe tog statusa | ☐ | ☐ |
-| 12. Klik na red otvara detalje u dijalogu: stavke (proizvod, količina, cijena po komadu, rabat, iznos) i ukupan iznos | ☐ | ☐ |
+- [ ] Grafik prometa po mjesecima ([MUI X Charts](https://mui.com/x/react-charts/quickstart/)).
+- [ ] Tabela s top deset kupaca i top deset proizvoda po prometu.
+- [ ] Grafik prometa po vrsti kupca i po kategoriji, po mjesecima.
+- [ ] Lista narudžbi koje stoje u `U_OBRADI` ili `POSLATA` više od 7 dana od datuma narudžbe.
+- [ ] `ANALIZA.md` s tri do pet nalaza, svaki s brojem iz podataka.
 
-| Korak 1: unos | Ti | Mentor |
-| --- | :---: | :---: |
-| 13. `GET /api/kupci` vraća sve kupce, a `GET /api/proizvodi` samo aktivne proizvode, s cijenom | ☐ | ☐ |
-| 14. Forma za novu narudžbu ima kupca (izbor s liste), datum i stavke; stavka se može dodati i ukloniti | ☐ | ☐ |
-| 15. Kad izabereš proizvod, cijena po komadu se popuni iz cjenovnika i može se promijeniti | ☐ | ☐ |
-| 16. Sačuvana narudžba ima status `KREIRANA` i broj koji je dodijelio server, i vidi se u tabeli i nakon osvježavanja stranice | ☐ | ☐ |
+### Faza 3: pametni algoritmi (opcionalno)
 
-| Korak 1: validacija na serveru | Ti | Mentor |
-| --- | :---: | :---: |
-| 17. Zahtjev za novu narudžbu pošalješ direktno na `/api`, bez forme: u browseru F12 → *Console* → [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch), i vidiš odgovor servera | ☐ | ☐ |
-| 18. Bez kupca: server vrati status 400 i poruku koje polje nije ispravno i zašto | ☐ | ☐ |
-| 19. Bez stavki: status 400, polje i razlog | ☐ | ☐ |
-| 20. Količina `0`: status 400, polje i razlog | ☐ | ☐ |
-| 21. Količina `1.5`: status 400, polje i razlog | ☐ | ☐ |
-| 22. Cijena `-1`: status 400, polje i razlog | ☐ | ☐ |
-| 23. Rabat `120`: status 400, polje i razlog | ☐ | ☐ |
-| 24. Isti proizvod dvaput: status 400, polje i razlog | ☐ | ☐ |
-| 25. Neaktivan proizvod: status 400, polje i razlog | ☐ | ☐ |
-| 26. Forma prikaže poruku sa servera pored polja koje nije ispravno | ☐ | ☐ |
+Sve ovdje je besplatno. Prognoza se radi u Pythonu s modelom [Chronos-2](https://github.com/amazon-science/chronos-forecasting), koji radi i bez grafičke kartice. Python i pakete najlakše postaviš preko [uv](https://docs.astral.sh/uv/getting-started/installation/):
 
-| Korak 1: izmjena, brisanje, status | Ti | Mentor |
-| --- | :---: | :---: |
-| 27. U narudžbi sa statusom `KREIRANA` promijeniš količinu stavke; nova količina i novi iznos ostaju i nakon osvježavanja | ☐ | ☐ |
-| 28. U narudžbi sa statusom `KREIRANA` dodaš stavku | ☐ | ☐ |
-| 29. U narudžbi sa statusom `KREIRANA` obrišeš stavku; zadnju stavku server ne da obrisati (status 400) | ☐ | ☐ |
-| 30. Narudžbu sa statusom `KREIRANA` obrišeš | ☐ | ☐ |
-| 31. Izmjenu i brisanje narudžbe koja nije `KREIRANA` server odbija (status 400) | ☐ | ☐ |
-| 32. U detaljima narudžbe padajuća lista nudi samo prelaze statusa iz tabele u poglavlju 5; izabrani status se sačuva | ☐ | ☐ |
-| 33. Prelaz koji tabela ne dozvoljava (npr. `ISPORUCENA` → `KREIRANA`), poslan direktno na `/api`, server odbija (status 400) | ☐ | ☐ |
+```bash
+uv init --python 3.13 prognoza
+cd prognoza
+uv add chronos-forecasting pandas "psycopg[binary]" python-dotenv
+uv run main.py
+```
 
-| Korak 1: novo polje | Ti | Mentor |
-| --- | :---: | :---: |
-| 34. Migracija `sql/001-nacin-placanja.sql` dodaje u `narudzbe` kolonu `nacin_placanja` s vrijednostima `GOTOVINA`, `KARTICA` ili `VIRMAN`; postojeće narudžbe dobiju `VIRMAN` | ☐ | ☐ |
-| 35. Način plaćanja se bira u formi, sačuva u bazi i prikaže u tabeli | ☐ | ☐ |
+Model se sam preuzme pri prvom pokretanju (oko pola GB). Connection string skripta čita sa `load_dotenv("../.env.local")` (paket python-dotenv). Na Windowsu s ARM procesorom (npr. Snapdragon) poslije `cd prognoza` pokreni i `uv python pin cpython-3.13-windows-x86_64-none`, jer PyTorch za taj procesor nema gotov paket.
 
-| Korak 2: analitika (bonus) | Ti | Mentor |
-| --- | :---: | :---: |
-| 36. Grafik prometa po mjesecima ([MUI X Charts](https://mui.com/x/react-charts/quickstart/)) | ☐ | ☐ |
-| 37. Top deset kupaca i top deset proizvoda po prometu | ☐ | ☐ |
-| 38. Grafik prometa po vrsti kupca i po kategoriji, po mjesecima | ☐ | ☐ |
-| 39. Lista narudžbi koje stoje u `U_OBRADI` ili `POSLATA` više od 7 dana od datuma narudžbe | ☐ | ☐ |
-| 40. `ANALIZA.md` ima tri do pet nalaza; svaki ima broj iz podataka i jednu rečenicu preporuke za Bistru; jedan nalaz je o cijenama | ☐ | ☐ |
+Za asistenta treba besplatan Gemini API ključ iz [Google AI Studija](https://aistudio.google.com/apikey), s dnevnim ograničenjem broja upita. Paketi su `ai` i `@ai-sdk/google`. Ključ upiši u `.env.local` kao `GOOGLE_GENERATIVE_AI_API_KEY` i koristi ga samo na backendu, nikad u frontendu.
 
-| Korak 3: inteligencija (bonus) | Ti | Mentor |
-| --- | :---: | :---: |
-| 41. CSV sa sedmičnim količinama po kategoriji (kategorija, sedmica, količina), samo iz početnih podataka | ☐ | ☐ |
-| 42. Osnova (ista sedmica prošle godine) prognozira sakrivenih zadnjih 12 sedmica; greška (MAE) izmjerena | ☐ | ☐ |
-| 43. Model prognozira istih 12 sedmica; greška (MAE) izmjerena i upoređena s osnovom | ☐ | ☐ |
-| 44. Aplikacija prikazuje stvarne vrijednosti, prognozu za sakrivenih 12 sedmica i prognozu za narednih osam | ☐ | ☐ |
-| 45. Asistent ima tri do pet alata samo za čitanje, npr. promet po kupcu, top proizvodi, prognoza | ☐ | ☐ |
-| 46. Asistent odgovara iz podataka i vidi se koje je alate pozvao | ☐ | ☐ |
-| 47. Zapisana dva pitanja na koja asistent griješi, s razlogom | ☐ | ☐ |
+- [ ] Python skripta čita iz baze sedmične količine po kategoriji. Sedmice bez prodaje imaju 0, inače ih model ne prihvata.
+- [ ] Zadnjih 12 sedmica sakriješ i prognoziraš ih jednostavno: ista sedmica prošle godine. Izmjeriš grešku (MAE).
+- [ ] Istih 12 sedmica prognoziraš s Chronos-2, izmjeriš grešku i uporediš je s jednostavnom prognozom.
+- [ ] Prognoza za narednih osam sedmica, sa srednjom vrijednošću i rasponom (p10 do p90), upisana je u tabelu `prognoze`.
+- [ ] Grafik u aplikaciji prikazuje stvarne količine i prognozu s rasponom, kao u primjeru [Line with forecast](https://mui.com/x/react-charts/line-demo/#line-with-forecast).
+- [ ] Asistent odgovara na pitanja iz podataka, npr. „Koji kafići u Mostaru su najviše naručivali ljeti?“ Koristi [Vercel AI SDK](https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling) s [Gemini modelom](https://ai-sdk.dev/providers/ai-sdk-providers/google-generative-ai). Asistent ne piše SQL sam, nego koristi tri do pet alata koji samo čitaju podatke, npr. promet po kupcu ili prognozu. Vidi se koje je alate pozvao.
 
-| Dodatni bonus | Ti | Mentor |
-| --- | :---: | :---: |
-| 48. Testovi: Vitest za pravila unosa, Playwright za unos narudžbe od početka do kraja | ☐ | ☐ |
-| 49. Skica arhitekture u README-u (šta radi browser, šta server, šta baza) ili kratak video ili GIF glavnog toka | ☐ | ☐ |
-| 50. CI: GitHub Actions pokreće build i testove na svaki push | ☐ | ☐ |
+### Završna prezentacija
 
-| Predaja | Ti | Mentor |
-| --- | :---: | :---: |
-| 51. Repozitorij je dostupan mentoru: javni, ili privatni s mentorom kao saradnikom | ☐ | ☐ |
-| 52. README tvog repozitorija kaže kako pokrenuti aplikaciju i šta još ne radi | ☐ | ☐ |
-| 53. Repozitorij kloniran u novi prazan folder pokreće se po tom README-u | ☐ | ☐ |
-| 54. U repozitoriju nema lozinki ni API ključeva | ☐ | ☐ |
+- [ ] README kaže kako pokrenuti aplikaciju i šta još ne radi.
+- [ ] U repozitoriju nema lozinki ni API ključeva.
 
-Prezentacija je uživo ili preko video poziva: aplikaciju pokrećeš na svom računaru i dijeliš ekran. Slajdovi nisu obavezni.
-
-| Prezentacija | Ti | Mentor |
-| --- | :---: | :---: |
-| 55. Glavni tok pokazan uživo | ☐ | ☐ |
-| 56. Objašnjen put jednog zahtjeva od forme do baze i nazad | ☐ | ☐ |
-| 57. Objašnjen dio koda koji je napisao AI (ako si koristio AI) | ☐ | ☐ |
-| 58. Objašnjena jedna odluka i alternativa koja nije izabrana | ☐ | ☐ |
-| 59. Pokazan jedan problem: kako je nađen i riješen | ☐ | ☐ |
-| 60. Rečeno šta bi bilo sljedeće | ☐ | ☐ |
-| 61. Ako si radio korak 3: objašnjeno zašto je greška modela ili osnove manja, i zašto asistent griješi na zapisanim pitanjima | ☐ | ☐ |
+Na prezentaciji pokreneš aplikaciju na svom računaru i pokažeš je. Objasni put jednog zahtjeva od forme do baze i nazad, jedan problem i kako je riješen, i šta bi bilo sljedeće. Ako je dio koda napisao AI, objasni i njega. Slajdovi nisu potrebni.

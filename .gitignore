@@ -3,6 +3,8 @@ dist/
 *.tsbuildinfo
 npm-debug.log*
 .DS_Store
+.venv/
+__pycache__/
 
 # lozinke i ključevi su u .env.local
 .env*

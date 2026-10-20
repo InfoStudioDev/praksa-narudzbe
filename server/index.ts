@@ -32,6 +32,7 @@ app.get("/api/provjera", async (c) => {
   }
 });
 
-serve({ fetch: app.fetch, port: 3000 }, (info) => {
+// Samo na ovom računaru (127.0.0.1), da backend nije otvoren na mreži.
+serve({ fetch: app.fetch, port: 3000, hostname: "127.0.0.1" }, (info) => {
   console.log(`Backend radi na http://localhost:${info.port}`);
 });
